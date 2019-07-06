@@ -1,0 +1,39 @@
+{
+    "name": "fof/username-request",
+    "description": "Allow users to request new usernames",
+    "keywords": [
+        "flarum",
+        "Friends of Flarum"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": "^0.1.0-beta.8"
+    },
+    "authors": [
+        {
+            "name": "Charlie K",
+            "email": "charlie.k@redevs.org",
+            "homepage": "https://redevs.org",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "FoF\\UserRequest\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "FoF Username Request",
+            "icon": {
+                "name": "fas fa-user-edit",
+                "backgroundColor": "#e74c3c",
+                "color": "#fff"
+            }
+        },
+        "flagrow": {
+            "discuss": ""
+        }
+    }
+}
