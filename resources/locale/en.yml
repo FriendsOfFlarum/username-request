@@ -33,5 +33,5 @@ fof-username-request:
     profile_link: Username History
     dropdown:
       title: Username Change Requests
-      item_text: "{username} has requested a username change"
+      item_text: "{username} requested a username change"
       exerpt: "Requsted username: {requestedUsername}"

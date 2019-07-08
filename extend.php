@@ -21,7 +21,7 @@ return [
     (new Extend\Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js')
         ->css(__DIR__.'/resources/less/UsernameRequest.less')
-        ->route('/username_history/{username}', 'username.history.view', Content\UsernameHistory::class),
+        ->route('/username_history/{username}', 'username.history.view'),
 
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js'),
