@@ -20,7 +20,11 @@ use Illuminate\Contracts\Events\Dispatcher;
 return [
     (new Extend\Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js')
-        ->css(__DIR__.'/resources/less/UsernameRequest.less'),
+        ->css(__DIR__.'/resources/less/UsernameRequest.less')
+        ->route('/username_history/{username}', 'username.history.view', Content\UsernameHistory::class),
+
+    (new Extend\Frontend('admin'))
+        ->js(__DIR__.'/js/dist/admin.js'),
 
     (new Extend\Routes('api'))
         ->get('/username_requests', 'username.request.index', Controller\ListRequestsController::class)

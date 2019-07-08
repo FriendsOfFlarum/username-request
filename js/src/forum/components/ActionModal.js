@@ -12,7 +12,7 @@
 import Alert from 'flarum/components/Alert';
 import Button from 'flarum/components/Button';
 import Modal from 'flarum/components/Modal';
-
+import username from 'flarum/helpers/username';
 
 export default class ActionModal extends Modal {
 
@@ -38,6 +38,14 @@ export default class ActionModal extends Modal {
         return (
             <div className="Modal-body">
                 <div className="Form">
+                    <h3 className="Notification-content">
+                        {app.translator.trans('fof-username-request.forum.action.name',
+                            {
+                                username: username(this.request.user()),
+                                newUsername: this.request.requestedUsername()
+                            }
+                        )}
+                    </h3>
                     <p className="help">
                         {app.translator.trans('fof-username-request.forum.action.help_text')}
                     </p>
@@ -53,16 +61,19 @@ export default class ActionModal extends Modal {
                         </label>
                     </div>
                     {this.approved() === "Denied" ? (
-                    <legend>{app.translator.trans('fof-username-request.forum.action.reason_title')}</legend>,
-                    <div className="BasicsPage-reason-input">,
-                        <textarea className="FormControl" value={this.reason()} disabled={this.loading} oninput={m.withAttr('value', this.reason)}/>
-                    </div>
-                        ) : '' }
+                        <div className="Form-group">
+                            <legend>{app.translator.trans('fof-username-request.forum.action.reason_title')}</legend>
+                            <div className="BasicsPage-reason-input">
+                                <textarea className="FormControl" value={this.reason()} disabled={this.loading} oninput={m.withAttr('value', this.reason)}/>
+                            </div>
+                        </div>
+                    ) : ''}
                     <div className="Form-group">
                         {Button.component({
                             className: 'Button Button--primary Button--block',
                             type: 'submit',
                             loading: this.loading,
+                            disabled: this.approved() === "Denied" && !this.reason() ? true : false,
                             children: app.translator.trans('fof-username-request.forum.action.submit_button'),
                         })}
                     </div>
@@ -73,14 +84,6 @@ export default class ActionModal extends Modal {
 
     onsubmit(e) {
         e.preventDefault();
-
-        if (!this.reason() && this.approved() !== "Approved") {
-            this.alert = new Alert({
-                type: 'error',
-                children: app.translator.trans('fof-username-request.forum.action.complete_reason'),
-            });
-            return;
-        }
 
         this.loading = true;
 
@@ -97,8 +100,6 @@ export default class ActionModal extends Modal {
         });
 
         app.cache.username_requests.some((request, i) => {
-            console.log(request.id())
-            console.log(this.request.id())
             if (request.id() == this.request.id()) {
                 app.cache.username_requests.splice(i, 1)
             }

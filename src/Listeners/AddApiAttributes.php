@@ -17,6 +17,7 @@ use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\CurrentUserSerializer;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Api\Serializer\PostSerializer;
+use Flarum\Api\Serializer\UserSerializer;
 use FoF\UserRequest\UsernameRequest;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
@@ -39,8 +40,11 @@ class AddApiAttributes
     public function handle(Serializing $event)
     {
         if ($event->isSerializer(ForumSerializer::class)) {
-            $event->attributes['canViewUsernameRequests'] = $event->actor->hasPermissionLike('user.viewUsernameRequests');
             $event->attributes['canRequestUsername'] = $event->actor->hasPermissionLike('user.requestUsername');
+        }
+
+        if ($event->isSerializer(UserSerializer::class)) {
+            $event->attributes['usernameHistory'] = json_decode($event->model->username_history);
         }
     }
 }

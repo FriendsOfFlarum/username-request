@@ -9,25 +9,27 @@
  *
  */
 
-import { extend } from 'flarum/extend';
+import {extend} from 'flarum/extend';
 import Button from 'flarum/components/Button';
 import SettingsPage from 'flarum/components/SettingsPage';
 import RequestModal from './components/RequestModal';
 
 export default function () {
     extend(SettingsPage.prototype, 'accountItems', items => {
-        items.add(
-            'username-request',
-            Button.component(
-                {
-                    className: 'Button',
-                    onclick: () => {
-                        app.modal.show(new RequestModal());
+        if (app.forum.attribute('canRequestUsername')) {
+            items.add(
+                'username-request',
+                Button.component(
+                    {
+                        className: 'Button',
+                        onclick: () => {
+                            app.modal.show(new RequestModal());
+                        },
                     },
-                },
-                [app.translator.trans('fof-username-request.forum.account_label')]
-            ),
-            10
-        );
+                    [app.translator.trans('fof-username-request.forum.account_label')]
+                ),
+                10
+            );
+        }
     });
 }

@@ -76,7 +76,6 @@ export default class FlagList extends Component {
         app.store.find('username_requests')
             .then(requests => {
                 delete requests.payload;
-                console.log(requests)
                 app.cache.username_requests = requests.sort((a, b) => a.createdAt() - b.createdAt());
             })
             .catch(() => {})

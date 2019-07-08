@@ -1,13 +1,19 @@
 fof-username-request:
+  admin:
+    permissions:
+      start: Request username change
+      moderate: Approve username change requests
   forum:
     action:
-      title: => fof-username-request.forum.result.title
+      title: => fof-username-request.forum.results.title
       help_text: Make sure the username follows the forum guidelines.
       decision_title: Decision
       approval_label: Approve
       denial_label: Deny
       submit_button: Submit
+      reason_title: Reason for Denial
       success: Decision sent.
+      name: '{username} has requested their username be changed to "{newUsername}"'
     results:
       title: Username Change
       approved: 'Your username change request has been approved!'
@@ -24,7 +30,8 @@ fof-username-request:
       dismiss_button: Understood
       deleted: Username request deleted.
     account_label: Change Username
+    profile_link: Username History
     dropdown:
       title: Username Change Requests
-      item_text: "{username} has request a username change"
+      item_text: "{username} has requested a username change"
       exerpt: "Requsted username: {requestedUsername}"

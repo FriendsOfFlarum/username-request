@@ -17,14 +17,18 @@ import addRequestSetting from './addRequestSetting';
 import RequestsPage from './components/RequestsPage';
 import addRequestDropdown from './addRequestDropdown';
 import checkForApproval from './checkForApproval';
+import ProfilePage from './components/ProfilePage';
+import addProfilePage from './addProfilePage';
 
 app.initializers.add('fof-username-request', () => {
     app.store.models.username_requests = UsernameRequest;
     User.prototype.username_requests = Model.hasOne('username_requests');
 
     app.routes.username_requests = {path: '/username_requests', component: <RequestsPage/>};
+    app.routes.username_history = {path: '/username_history/:username', component: ProfilePage.component()};
 
     addRequestSetting();
     addRequestDropdown();
     checkForApproval();
+    addProfilePage();
 });
