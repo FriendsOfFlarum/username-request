@@ -13,5 +13,5 @@
 use Flarum\Database\Migration;
 
 return Migration::addColumns('users', [
-    'username_history' => ['json', 'default' => '{}']
+    'username_history' => ['json']
 ]);

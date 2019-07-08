@@ -68,6 +68,9 @@ class ActOnRequestHandler
             $this->validator->assertValid(['username' => $usernameRequest->requested_username]);
 
             $usernameHistory = json_decode($user->username_history, true);
+
+            $usernameHistory === null ? $usernameHistory = [] : $usernameHistory;
+
             array_push($usernameHistory, [$user->username => time()]);
             $user->username_history = json_encode($usernameHistory);
 
