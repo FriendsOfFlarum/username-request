@@ -16,12 +16,14 @@ import UserPage from 'flarum/components/UserPage';
 
 export default function () {
     extend(UserPage.prototype, 'navItems', function (items) {
-        items.add('masquerade',
-            LinkButton.component({
-                href: app.route('username_history', {username: this.user.username()}),
-                children: app.translator.trans('fof-username-request.forum.profile_link'),
-                icon: 'fas fa-user-edit',
-            }),
-        );
+        if (this.user.data.attributes.usernameHistory.length) {
+            items.add('masquerade',
+                LinkButton.component({
+                    href: app.route('username_history', {username: this.user.username()}),
+                    children: app.translator.trans('fof-username-request.forum.profile_link'),
+                    icon: 'fas fa-user-edit',
+                }),
+            );
+        }
     });
 }

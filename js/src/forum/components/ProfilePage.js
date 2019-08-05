@@ -22,20 +22,22 @@ export default class ProfileConfigurePane extends UserPage {
 
     content() {
         return (
-            <ul>
+            <table className="NotificationGrid">
                 {this.user.data.attributes.usernameHistory.slice(0).reverse().map(username => {
                     var oldUsername = Object.keys(username)[0];
                     return (
-                        <li>
-                            <h2>
-                                {oldUsername + ": "}
+                        <tr>
+                            <td>
+                                {oldUsername}
+                            </td>
+                            <td>
                                 {humanTime(this.calculateTime(username[oldUsername]))}
-                            </h2>
-                        </li>
+                            </td>
+                        </tr>
                     )
                 })}
-            </ul>
-        )
+            </table>
+        );
     }
 
     show(user) {
