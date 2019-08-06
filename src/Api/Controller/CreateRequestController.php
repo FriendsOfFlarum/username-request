@@ -1,13 +1,12 @@
 <?php
-/**
+
+/*
+ * This file is part of fof/username-request.
  *
- *  This file is part of fof/username-request.
+ * Copyright (c) 2019 FriendsOfFlarum.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
- *
- *  For the full copyright and license information, please view the license.md
- *  file that was distributed with this source code.
- *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace FoF\UserRequest\Api\Controller;
@@ -32,7 +31,7 @@ class CreateRequestController extends AbstractCreateController
      */
     public $include = [
         'user',
-        'user.user_requests'
+        'user.user_requests',
     ];
 
     /**
@@ -55,8 +54,8 @@ class CreateRequestController extends AbstractCreateController
     {
         $actor = $request->getAttribute('actor');
 
-        if (! $actor->checkPassword(array_get($request->getParsedBody(), 'meta.password'))) {
-            throw new PermissionDeniedException;
+        if (!$actor->checkPassword(array_get($request->getParsedBody(), 'meta.password'))) {
+            throw new PermissionDeniedException();
         }
 
         return $this->bus->dispatch(

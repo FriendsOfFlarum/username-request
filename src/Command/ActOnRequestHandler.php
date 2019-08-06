@@ -1,13 +1,12 @@
 <?php
-/**
+
+/*
+ * This file is part of fof/username-request.
  *
- *  This file is part of fof/username-request.
+ * Copyright (c) 2019 FriendsOfFlarum.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
- *
- *  For the full copyright and license information, please view the license.md
- *  file that was distributed with this source code.
- *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace FoF\UserRequest\Command;
@@ -33,6 +32,7 @@ class ActOnRequestHandler
 
     /**
      * CreateRequestHandler constructor.
+     *
      * @param UserValidator $validator
      */
     public function __construct(UserValidator $validator, UserRepository $users)
@@ -43,9 +43,11 @@ class ActOnRequestHandler
 
     /**
      * @param ActOnRequest $command
-     * @return mixed
+     *
      * @throws \Flarum\User\Exception\PermissionDeniedException
      * @throws \Illuminate\Validation\ValidationException
+     *
+     * @return mixed
      */
     public function handle(ActOnRequest $command)
     {
@@ -63,8 +65,7 @@ class ActOnRequestHandler
 
         $usernameRequest->status = $data['attributes']['action'];
 
-        if ($usernameRequest->status === "Approved") {
-
+        if ($usernameRequest->status === 'Approved') {
             $this->validator->assertValid(['username' => $usernameRequest->requested_username]);
 
             $usernameHistory = json_decode($user->username_history, true);
@@ -81,7 +82,6 @@ class ActOnRequestHandler
         }
 
         $usernameRequest->save();
-
 
         return $usernameRequest;
     }

@@ -1,13 +1,12 @@
 <?php
-/**
+
+/*
+ * This file is part of fof/username-request.
  *
- *  This file is part of fof/username-request.
+ * Copyright (c) 2019 FriendsOfFlarum.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
- *
- *  For the full copyright and license information, please view the license.md
- *  file that was distributed with this source code.
- *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace FoF\UserRequest\Api\Serializer;
@@ -28,7 +27,7 @@ class RequestSerializer extends AbstractSerializer
     protected function getDefaultAttributes($username_request)
     {
         return [
-            'requestedUsername' => $username_request->requested_username,
+            'requestedUsername'  => $username_request->requested_username,
             'status'             => $username_request->status,
             'reason'             => $username_request->reason,
             'createdAt'          => $this->formatDate($username_request->created_at),
@@ -37,6 +36,7 @@ class RequestSerializer extends AbstractSerializer
 
     /**
      * @param $username_request
+     *
      * @return \Tobscure\JsonApi\Relationship
      */
     protected function user($username_request)

@@ -34,8 +34,8 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
     function (Dispatcher $events) {
-        $events->listen(Serializing::class,Listeners\AddApiAttributes::class);
-        $events->listen(ConfigureModelDates::class,Listeners\AddApiDates::class);
+        $events->listen(Serializing::class, Listeners\AddApiAttributes::class);
+        $events->listen(ConfigureModelDates::class, Listeners\AddApiDates::class);
 
         $events->subscribe(Listeners\AddRelationships::class);
     },

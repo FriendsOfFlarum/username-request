@@ -1,14 +1,12 @@
 <?php
 
-/**
+/*
+ * This file is part of fof/username-request.
  *
- *  This file is part of fof/username-request.
+ * Copyright (c) 2019 FriendsOfFlarum.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
- *
- *  For the full copyright and license information, please view the license.md
- *  file that was distributed with this source code.
- *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace FoF\UserRequest\Listeners;
@@ -40,6 +38,7 @@ class AddRelationships
 
     /**
      * @param GetModelRelationship $event
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function getModelRelationship(GetModelRelationship $event)
@@ -51,6 +50,7 @@ class AddRelationships
 
     /**
      * @param GetApiRelationship $event
+     *
      * @return \Tobscure\JsonApi\Relationship|null
      */
     public function getApiRelationship(GetApiRelationship $event)
@@ -69,7 +69,6 @@ class AddRelationships
      */
     public function includeRequestsRelationship(WillGetData $event)
     {
-
         if ($event->isController(Controller\ListUsersController::class)
             || $event->isController(Controller\ShowUserController::class)) {
             $event->addInclude('username_requests');
@@ -86,7 +85,6 @@ class AddRelationships
     public function prepareApiData(WillSerializeData $event)
     {
         if ($event->isController(Controller\ShowForumController::class)) {
-
             $event->data['username_requests'] = null;
 
             if ($event->actor->can('user.viewUsernameRequests')) {

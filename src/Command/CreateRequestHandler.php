@@ -1,13 +1,12 @@
 <?php
-/**
+
+/*
+ * This file is part of fof/username-request.
  *
- *  This file is part of fof/username-request.
+ * Copyright (c) 2019 FriendsOfFlarum.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
- *
- *  For the full copyright and license information, please view the license.md
- *  file that was distributed with this source code.
- *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace FoF\UserRequest\Command;
@@ -27,6 +26,7 @@ class CreateRequestHandler
 
     /**
      * CreateRequestHandler constructor.
+     *
      * @param UserValidator $validator
      */
     public function __construct(UserValidator $validator)
@@ -36,9 +36,11 @@ class CreateRequestHandler
 
     /**
      * @param CreateRequest $command
-     * @return mixed
+     *
      * @throws \Flarum\User\Exception\PermissionDeniedException
      * @throws \Illuminate\Validation\ValidationException'
+     *
+     * @return mixed
      */
     public function handle(CreateRequest $command)
     {
@@ -52,7 +54,7 @@ class CreateRequestHandler
         UsernameRequest::unguard();
 
         $usernameRequest = UsernameRequest::firstOrNew([
-            'user_id' => $actor->id
+            'user_id' => $actor->id,
         ]);
 
         $usernameRequest->user_id = $actor->id;
