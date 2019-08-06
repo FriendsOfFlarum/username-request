@@ -20,7 +20,7 @@ class RequestSerializer extends AbstractSerializer
     /**
      * {@inheritdoc}
      */
-    protected $type = 'username_requests';
+    protected $type = 'username-requests';
 
     /**
      * {@inheritdoc}

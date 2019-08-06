@@ -122,7 +122,7 @@ export default class FlagPostModal extends Modal {
 
         this.loading = true;
 
-        app.store.createRecord('username_requests').save({username: this.username()}, {
+        app.store.createRecord('username-requests').save({username: this.username()}, {
             meta: {password: this.password()},
             errorHandler: this.onerror.bind(this)
         })

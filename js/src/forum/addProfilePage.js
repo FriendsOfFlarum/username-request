@@ -16,7 +16,7 @@ import UserPage from 'flarum/components/UserPage';
 
 export default function () {
     extend(UserPage.prototype, 'navItems', function (items) {
-        if (this.user.data.attributes.usernameHistory.length) {
+        if (this.user.usernameHistory()) {
             items.add('masquerade',
                 LinkButton.component({
                     href: app.route('username_history', {username: this.user.username()}),

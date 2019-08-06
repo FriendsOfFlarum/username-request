@@ -23,7 +23,7 @@ export default class ProfileConfigurePane extends UserPage {
     content() {
         return (
             <table className="NotificationGrid">
-                {this.user.data.attributes.usernameHistory.slice(0).reverse().map(username => {
+                {this.user.usernameHistory().slice(0).reverse().map(username => {
                     var oldUsername = Object.keys(username)[0];
                     return (
                         <tr>

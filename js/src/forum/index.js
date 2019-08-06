@@ -21,11 +21,12 @@ import ProfilePage from './components/ProfilePage';
 import addProfilePage from './addProfilePage';
 
 app.initializers.add('fof-username-request', () => {
-    app.store.models.username_requests = UsernameRequest;
+    app.store.models['username-requests'] = UsernameRequest;
     User.prototype.username_requests = Model.hasOne('username_requests');
+    User.prototype.usernameHistory = Model.attribute('usernameHistory');
 
-    app.routes.username_requests = {path: '/username_requests', component: <RequestsPage/>};
-    app.routes.username_history = {path: '/username_history/:username', component: ProfilePage.component()};
+    app.routes.username_requests = {path: '/username-requests', component: <RequestsPage/>};
+    app.routes.username_history = {path: '/u/:username/history', component: ProfilePage.component()};
 
     addRequestSetting();
     addRequestDropdown();
