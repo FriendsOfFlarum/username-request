@@ -46,7 +46,6 @@ class ListRequestsController extends AbstractListController
 
         return UsernameRequest::whereVisibleTo($actor)
             ->where('status', 'Sent')
-            ->with($this->extractInclude($request))
             ->latest('username_requests.created_at')
             ->get();
     }
