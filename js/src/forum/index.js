@@ -2,9 +2,9 @@
  *
  *  This file is part of fof/username-request.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
+ *  Copyright (c) 2019 FriendsOfFlarum.
  *
- *  For the full copyright and license information, please view the license.md
+ *  For the full copyright and license information, please view the LICENSE.md
  *  file that was distributed with this source code.
  *
  */
@@ -25,8 +25,8 @@ app.initializers.add('fof-username-request', () => {
     User.prototype.username_requests = Model.hasOne('username_requests');
     User.prototype.usernameHistory = Model.attribute('usernameHistory');
 
-    app.routes.username_requests = {path: '/username-requests', component: <RequestsPage/>};
-    app.routes.username_history = {path: '/u/:username/history', component: ProfilePage.component()};
+    app.routes.username_requests = { path: '/username-requests', component: <RequestsPage /> };
+    app.routes.username_history = { path: '/u/:username/history', component: ProfilePage.component() };
 
     addRequestSetting();
     addRequestDropdown();

@@ -2,9 +2,9 @@
  *
  *  This file is part of fof/username-request.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
+ *  Copyright (c) 2019 FriendsOfFlarum.
  *
- *  For the full copyright and license information, please view the license.md
+ *  For the full copyright and license information, please view the LICENSE.md
  *  file that was distributed with this source code.
  *
  */
@@ -23,19 +23,19 @@ export default class ProfileConfigurePane extends UserPage {
     content() {
         return (
             <table className="NotificationGrid">
-                {this.user.usernameHistory().slice(0).reverse().map(username => {
-                    var oldUsername = Object.keys(username)[0];
-                    return (
-                        <tr>
-                            <td>
-                                {oldUsername}
-                            </td>
-                            <td>
-                                {humanTime(this.calculateTime(username[oldUsername]))}
-                            </td>
-                        </tr>
-                    )
-                })}
+                {this.user
+                    .usernameHistory()
+                    .slice(0)
+                    .reverse()
+                    .map(username => {
+                        var oldUsername = Object.keys(username)[0];
+                        return (
+                            <tr>
+                                <td>{oldUsername}</td>
+                                <td>{humanTime(this.calculateTime(username[oldUsername]))}</td>
+                            </tr>
+                        );
+                    })}
             </table>
         );
     }

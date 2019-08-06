@@ -2,9 +2,9 @@
  *
  *  This file is part of fof/username-request.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
+ *  Copyright (c) 2019 FriendsOfFlarum.
  *
- *  For the full copyright and license information, please view the license.md
+ *  For the full copyright and license information, please view the LICENSE.md
  *  file that was distributed with this source code.
  *
  */
@@ -54,26 +54,40 @@ export default class FlagPostModal extends Modal {
             <div className="Modal-body">
                 <div className="Form Form--centered">
                     {app.session.user.username_requests() ? (
-                        <p className="helpText">{app.translator.trans('fof-username-request.forum.request.current_request', {username: app.session.user.username_requests().requestedUsername()})}</p>
-                    ) : ''}
+                        <p className="helpText">
+                            {app.translator.trans('fof-username-request.forum.request.current_request', {
+                                username: app.session.user.username_requests().requestedUsername(),
+                            })}
+                        </p>
+                    ) : (
+                        ''
+                    )}
                     <div className="Form-group">
-                        <input type="text" name="text" className="FormControl"
-                               placeholder={app.session.user.username()}
-                               bidi={this.username}
-                               disabled={this.loading}/>
+                        <input
+                            type="text"
+                            name="text"
+                            className="FormControl"
+                            placeholder={app.session.user.username()}
+                            bidi={this.username}
+                            disabled={this.loading}
+                        />
                     </div>
                     <div className="Form-group">
-                        <input type="password" name="password" className="FormControl"
-                               placeholder={app.translator.trans('core.forum.change_email.confirm_password_placeholder')}
-                               bidi={this.password}
-                               disabled={this.loading}/>
+                        <input
+                            type="password"
+                            name="password"
+                            className="FormControl"
+                            placeholder={app.translator.trans('core.forum.change_email.confirm_password_placeholder')}
+                            bidi={this.password}
+                            disabled={this.loading}
+                        />
                     </div>
                     <div className="Form-group">
                         {Button.component({
                             className: 'Button Button--primary Button--block',
                             type: 'submit',
                             loading: this.loading,
-                            children: app.translator.trans('fof-username-request.forum.request.submit_button')
+                            children: app.translator.trans('fof-username-request.forum.request.submit_button'),
                         })}
                     </div>
                     {app.session.user.username_requests() ? (
@@ -82,10 +96,12 @@ export default class FlagPostModal extends Modal {
                                 className: 'Button Button--primary Button--block',
                                 onclick: this.deleteRequest.bind(this),
                                 loading: this.loading,
-                                children: app.translator.trans('fof-username-request.forum.request.delete_button')
+                                children: app.translator.trans('fof-username-request.forum.request.delete_button'),
                             })}
                         </div>
-                    ) : ''}
+                    ) : (
+                        ''
+                    )}
                 </div>
             </div>
         );
@@ -122,16 +138,20 @@ export default class FlagPostModal extends Modal {
 
         this.loading = true;
 
-        app.store.createRecord('username-requests').save({username: this.username()}, {
-            meta: {password: this.password()},
-            errorHandler: this.onerror.bind(this)
-        })
-            .then((request) => {
+        app.store
+            .createRecord('username-requests')
+            .save(
+                { username: this.username() },
+                {
+                    meta: { password: this.password() },
+                    errorHandler: this.onerror.bind(this),
+                }
+            )
+            .then(request => {
                 app.session.user.username_requests = m.prop(request);
-                this.success = true
+                this.success = true;
             })
-            .catch(() => {
-            })
+            .catch(() => {})
             .then(this.loaded.bind(this));
     }
 

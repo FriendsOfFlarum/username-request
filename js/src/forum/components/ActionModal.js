@@ -2,9 +2,9 @@
  *
  *  This file is part of fof/username-request.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
+ *  Copyright (c) 2019 FriendsOfFlarum.
  *
- *  For the full copyright and license information, please view the license.md
+ *  For the full copyright and license information, please view the LICENSE.md
  *  file that was distributed with this source code.
  *
  */
@@ -15,7 +15,6 @@ import Modal from 'flarum/components/Modal';
 import username from 'flarum/helpers/username';
 
 export default class ActionModal extends Modal {
-
     init() {
         super.init();
 
@@ -39,41 +38,56 @@ export default class ActionModal extends Modal {
             <div className="Modal-body">
                 <div className="Form">
                     <h3 className="Notification-content">
-                        {app.translator.trans('fof-username-request.forum.action.name',
-                            {
-                                username: username(this.request.user()),
-                                newUsername: this.request.requestedUsername()
-                            }
-                        )}
+                        {app.translator.trans('fof-username-request.forum.action.name', {
+                            username: username(this.request.user()),
+                            newUsername: this.request.requestedUsername(),
+                        })}
                     </h3>
-                    <p className="help">
-                        {app.translator.trans('fof-username-request.forum.action.help_text')}
-                    </p>
+                    <p className="help">{app.translator.trans('fof-username-request.forum.action.help_text')}</p>
                     <legend>{app.translator.trans('fof-username-request.forum.action.decision_title')}</legend>
                     <div className="Form-group">
                         <label className="checkbox">
-                            <input type="radio" name="approved" value="Approved" checked={this.approved() === "Approved"} onclick={m.withAttr('value', this.approved)}/>
+                            <input
+                                type="radio"
+                                name="approved"
+                                value="Approved"
+                                checked={this.approved() === 'Approved'}
+                                onclick={m.withAttr('value', this.approved)}
+                            />
                             {app.translator.trans('fof-username-request.forum.action.approval_label')}
                         </label>
                         <label className="checkbox">
-                            <input type="radio" name="denied" value="Denied" checked={this.approved() === "Denied"} onclick={m.withAttr('value', this.approved)}/>
+                            <input
+                                type="radio"
+                                name="denied"
+                                value="Denied"
+                                checked={this.approved() === 'Denied'}
+                                onclick={m.withAttr('value', this.approved)}
+                            />
                             {app.translator.trans('fof-username-request.forum.action.denial_label')}
                         </label>
                     </div>
-                    {this.approved() === "Denied" ? (
+                    {this.approved() === 'Denied' ? (
                         <div className="Form-group">
                             <legend>{app.translator.trans('fof-username-request.forum.action.reason_title')}</legend>
                             <div className="BasicsPage-reason-input">
-                                <textarea className="FormControl" value={this.reason()} disabled={this.loading} oninput={m.withAttr('value', this.reason)}/>
+                                <textarea
+                                    className="FormControl"
+                                    value={this.reason()}
+                                    disabled={this.loading}
+                                    oninput={m.withAttr('value', this.reason)}
+                                />
                             </div>
                         </div>
-                    ) : ''}
+                    ) : (
+                        ''
+                    )}
                     <div className="Form-group">
                         {Button.component({
                             className: 'Button Button--primary Button--block',
                             type: 'submit',
                             loading: this.loading,
-                            disabled: this.approved() === "Denied" && !this.reason() ? true : false,
+                            disabled: this.approved() === 'Denied' && !this.reason() ? true : false,
                             children: app.translator.trans('fof-username-request.forum.action.submit_button'),
                         })}
                     </div>
@@ -87,23 +101,25 @@ export default class ActionModal extends Modal {
 
         this.loading = true;
 
-        this.request.save({
-            reason: this.reason(),
-            action: this.approved()
-        }).then(() => {
-            app.alerts.show(
-                (this.successAlert = new Alert({
-                    type: 'success',
-                    children: app.translator.trans('fof-username-request.forum.action.success'),
-                }))
-            );
-        });
+        this.request
+            .save({
+                reason: this.reason(),
+                action: this.approved(),
+            })
+            .then(() => {
+                app.alerts.show(
+                    (this.successAlert = new Alert({
+                        type: 'success',
+                        children: app.translator.trans('fof-username-request.forum.action.success'),
+                    }))
+                );
+            });
 
         app.cache.username_requests.some((request, i) => {
             if (request.id() == this.request.id()) {
-                app.cache.username_requests.splice(i, 1)
+                app.cache.username_requests.splice(i, 1);
             }
-        })
+        });
 
         m.redraw();
 

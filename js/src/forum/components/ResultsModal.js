@@ -2,9 +2,9 @@
  *
  *  This file is part of fof/username-request.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
+ *  Copyright (c) 2019 FriendsOfFlarum.
  *
- *  For the full copyright and license information, please view the license.md
+ *  For the full copyright and license information, please view the LICENSE.md
  *  file that was distributed with this source code.
  *
  */
@@ -29,12 +29,12 @@ export default class FlagPostModal extends Modal {
     }
 
     content() {
-        if (this.request.status() === "Approved") {
+        if (this.request.status() === 'Approved') {
             return (
                 <div className="Modal-body">
                     <div className="Form Form--centered">
                         <h2>{app.translator.trans('fof-username-request.forum.results.approved')}</h2>
-                        <h3>{app.translator.trans('fof-username-request.forum.results.new_username', {username: app.session.user.username()})}</h3>
+                        <h3>{app.translator.trans('fof-username-request.forum.results.new_username', { username: app.session.user.username() })}</h3>
                         <div className="Form-group">
                             <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
                                 {app.translator.trans('fof-username-request.forum.request.dismiss_button')}
@@ -48,7 +48,7 @@ export default class FlagPostModal extends Modal {
                 <div className="Modal-body">
                     <div className="Form Form--centered">
                         <h2>{app.translator.trans('fof-username-request.forum.results.denied')}</h2>
-                        <h3>{app.translator.trans('fof-username-request.forum.results.reason', {reason: this.request.reason(), i: <i/>})}</h3>
+                        <h3>{app.translator.trans('fof-username-request.forum.results.reason', { reason: this.request.reason(), i: <i /> })}</h3>
                         <p className="helpText">{app.translator.trans('fof-username-request.forum.results.resubmit')}</p>
                         <div className="Form-group">
                             <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
@@ -59,11 +59,10 @@ export default class FlagPostModal extends Modal {
                 </div>
             );
         }
-
     }
 
     onhide() {
         app.session.user.username_requests = m.prop();
-        this.request.save({delete: true})
+        this.request.save({ delete: true });
     }
 }

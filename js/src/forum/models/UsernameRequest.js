@@ -2,9 +2,9 @@
  *
  *  This file is part of fof/username-request.
  *
- *  Copyright (c) 2019 FriendsOfFlarum..
+ *  Copyright (c) 2019 FriendsOfFlarum.
  *
- *  For the full copyright and license information, please view the license.md
+ *  For the full copyright and license information, please view the LICENSE.md
  *  file that was distributed with this source code.
  *
  */
@@ -16,5 +16,5 @@ export default class UsernameRequest extends mixin(Model, {
     requestedUsername: Model.attribute('requestedUsername'),
     status: Model.attribute('status'),
     reason: Model.attribute('reason'),
-    createdAt: Model.attribute('createdAt', Model.transformDate)
+    createdAt: Model.attribute('createdAt', Model.transformDate),
 }) {}
