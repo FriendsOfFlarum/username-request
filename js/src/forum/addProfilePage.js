@@ -17,7 +17,7 @@ import UserPage from 'flarum/components/UserPage';
 export default function () {
     extend(UserPage.prototype, 'navItems', function (items) {
         if (this.user.usernameHistory()) {
-            items.add('masquerade',
+            items.add('username-requests',
                 LinkButton.component({
                     href: app.route('username_history', {username: this.user.username()}),
                     children: app.translator.trans('fof-username-request.forum.profile_link'),
