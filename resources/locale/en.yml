@@ -23,7 +23,7 @@ fof-username-request:
       resubmit: You may resubmit a new username request from your account settings.
     request:
       title: Request Username Change
-      current_request: You have already requested the username "{username}." You can update or delete this request.
+      current_request: You have already requested the username "{username}". You can update or delete this request.
       submit_button: Submit Request
       delete_button: Delete Request
       confirmation_message: Your request has been received and will be reviewed soon.
