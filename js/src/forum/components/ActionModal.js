@@ -20,7 +20,7 @@ export default class ActionModal extends Modal {
 
         this.request = this.props.request;
 
-        this.approved = m.prop('Denied');
+        this.approved = m.prop('Rejected');
 
         this.reason = m.prop('');
     }
@@ -59,15 +59,15 @@ export default class ActionModal extends Modal {
                         <label className="checkbox">
                             <input
                                 type="radio"
-                                name="denied"
-                                value="Denied"
-                                checked={this.approved() === 'Denied'}
+                                name="rejected"
+                                value="Rejected"
+                                checked={this.approved() === 'Rejected'}
                                 onclick={m.withAttr('value', this.approved)}
                             />
-                            {app.translator.trans('fof-username-request.forum.action.denial_label')}
+                            {app.translator.trans('fof-username-request.forum.action.rejected_label')}
                         </label>
                     </div>
-                    {this.approved() === 'Denied' ? (
+                    {this.approved() === 'Rejected' ? (
                         <div className="Form-group">
                             <legend>{app.translator.trans('fof-username-request.forum.action.reason_title')}</legend>
                             <div className="BasicsPage-reason-input">
@@ -87,7 +87,7 @@ export default class ActionModal extends Modal {
                             className: 'Button Button--primary Button--block',
                             type: 'submit',
                             loading: this.loading,
-                            disabled: this.approved() === 'Denied' && !this.reason() ? true : false,
+                            disabled: this.approved() === 'Rejected' && !this.reason() ? true : false,
                             children: app.translator.trans('fof-username-request.forum.action.submit_button'),
                         })}
                     </div>

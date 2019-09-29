@@ -21,7 +21,7 @@ export default class FlagPostModal extends Modal {
     }
 
     className() {
-        return 'ResultsModal Modal--small';
+        return 'ResultsModal Modal';
     }
 
     title() {
@@ -47,7 +47,7 @@ export default class FlagPostModal extends Modal {
             return (
                 <div className="Modal-body">
                     <div className="Form Form--centered">
-                        <h2>{app.translator.trans('fof-username-request.forum.results.denied')}</h2>
+                        <h2>{app.translator.trans('fof-username-request.forum.results.rejected')}</h2>
                         <h3>{app.translator.trans('fof-username-request.forum.results.reason', { reason: this.request.reason(), i: <i /> })}</h3>
                         <p className="helpText">{app.translator.trans('fof-username-request.forum.results.resubmit')}</p>
                         <div className="Form-group">
