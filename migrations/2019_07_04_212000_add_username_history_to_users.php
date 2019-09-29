@@ -9,8 +9,16 @@
  * file that was distributed with this source code.
  */
 
-use Flarum\Database\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 
-return Migration::addColumns('users', [
-    'username_history' => ['json'],
-]);
+return [
+    'up' => function (Builder $schema) {
+        if ($schema->hasColumn('users', 'username_history')) {
+            return;
+        }
+        $schema->table('users', function (Blueprint $table) {
+            $table->addColumn('binary', 'username_history');
+        });
+    },
+];

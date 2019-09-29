@@ -13,6 +13,6 @@ use Flarum\Database\Migration;
 use Flarum\Group\Group;
 
 return Migration::addPermissions([
-    'user.requestUsername'      => Group::MEMBER_ID,
+    'user.requestUsername' => Group::MEMBER_ID,
     'user.viewUsernameRequests' => Group::MODERATOR_ID,
 ]);
