@@ -21,9 +21,8 @@ export default function() {
                 'username-requests',
                 LinkButton.component({
                     href: app.route('username_history', { username: this.user.username() }),
-                    children: app.translator.trans('fof-username-request.forum.profile_link'),
                     icon: 'fas fa-user-edit',
-                })
+                }, app.translator.trans('fof-username-request.forum.profile_link'))
             );
         }
     });

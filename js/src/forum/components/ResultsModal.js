@@ -9,13 +9,12 @@
  *
  */
 
-import Alert from 'flarum/components/Alert';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 
 export default class FlagPostModal extends Modal {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         this.request = app.session.user.username_requests();
     }
@@ -61,8 +60,8 @@ export default class FlagPostModal extends Modal {
         }
     }
 
-    onhide() {
-        app.session.user.username_requests = m.prop();
+    onremove() {
+        app.session.user.username_requests = m.stream();
         this.request.save({ delete: true });
     }
 }

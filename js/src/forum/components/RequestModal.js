@@ -14,16 +14,16 @@ import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 
 export default class FlagPostModal extends Modal {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
-        this.username = m.prop(app.session.user.username());
+        this.username = m.stream(app.session.user.username());
 
         if (app.session.user.username_requests()) this.username(app.session.user.username_requests().requestedUsername());
 
         this.success = false;
 
-        this.password = m.prop('');
+        this.password = m.stream('');
     }
 
     className() {
@@ -87,8 +87,7 @@ export default class FlagPostModal extends Modal {
                             className: 'Button Button--primary Button--block',
                             type: 'submit',
                             loading: this.loading,
-                            children: app.translator.trans('fof-username-request.forum.request.submit_button'),
-                        })}
+                        }, app.translator.trans('fof-username-request.forum.request.submit_button'))}
                     </div>
                     {app.session.user.username_requests() ? (
                         <div className="Form-group">
@@ -96,8 +95,7 @@ export default class FlagPostModal extends Modal {
                                 className: 'Button Button--primary Button--block',
                                 onclick: this.deleteRequest.bind(this),
                                 loading: this.loading,
-                                children: app.translator.trans('fof-username-request.forum.request.delete_button'),
-                            })}
+                            }, app.translator.trans('fof-username-request.forum.request.delete_button'))}
                         </div>
                     ) : (
                         ''
@@ -114,14 +112,9 @@ export default class FlagPostModal extends Modal {
 
         app.session.user.username_requests().delete();
 
-        app.alerts.show(
-            (this.successAlert = new Alert({
-                type: 'success',
-                children: app.translator.trans('fof-username-request.forum.request.deleted'),
-            }))
-        );
+        this.successAlert = app.alerts.show(app.translator.trans('fof-username-request.forum.request.deleted'), { type: 'success' });
 
-        app.session.user.username_requests = m.prop();
+        app.session.user.username_requests = m.stream();
 
         this.hide();
     }
@@ -148,7 +141,7 @@ export default class FlagPostModal extends Modal {
                 }
             )
             .then(request => {
-                app.session.user.username_requests = m.prop(request);
+                app.session.user.username_requests = m.stream(request);
                 this.success = true;
             })
             .catch(() => {})
@@ -157,7 +150,7 @@ export default class FlagPostModal extends Modal {
 
     onerror(error) {
         if (error.status === 401) {
-            error.alert.props.children = app.translator.trans('core.forum.change_email.incorrect_password_message');
+            error.alert.attrs.content = app.translator.trans('core.forum.change_email.incorrect_password_message');
         }
 
         super.onerror(error);

@@ -22,7 +22,7 @@ export default function() {
                 !app.cache.username_requests) ||
             (app.cache.username_requests && app.cache.username_requests.length !== 0)
         ) {
-            items.add('UsernameRequests', <RequestsDropdown />, 20);
+            items.add('UsernameRequests', <RequestsDropdown state={app.usernameRequests} />, 20);
         }
     });
 }

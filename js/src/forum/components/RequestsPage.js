@@ -14,18 +14,15 @@ import Page from 'flarum/components/Page';
 import RequestsList from './RequestsList';
 
 export default class RequestsPage extends Page {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         app.history.push('requests');
-
-        this.list = new RequestsList();
-        this.list.load();
 
         this.bodyClass = 'App--requests';
     }
 
     view() {
-        return <div className="RequestsPage">{this.list.render()}</div>;
+        return <div className="RequestsPage"><RequestsList state={app.usernameRequests}></RequestsList></div>;
     }
 }

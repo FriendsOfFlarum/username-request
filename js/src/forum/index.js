@@ -9,7 +9,6 @@
  *
  */
 
-import { extend } from 'flarum/extend';
 import User from 'flarum/models/User';
 import Model from 'flarum/Model';
 import UsernameRequest from './models/UsernameRequest';
@@ -19,14 +18,17 @@ import addRequestDropdown from './addRequestDropdown';
 import checkForApproval from './checkForApproval';
 import ProfilePage from './components/ProfilePage';
 import addProfilePage from './addProfilePage';
+import RequestsListState from './states/RequestsListState';
 
 app.initializers.add('fof-username-request', () => {
     app.store.models['username-requests'] = UsernameRequest;
     User.prototype.username_requests = Model.hasOne('username_requests');
     User.prototype.usernameHistory = Model.attribute('usernameHistory');
 
-    app.routes.username_requests = { path: '/username-requests', component: <RequestsPage /> };
-    app.routes.username_history = { path: '/u/:username/history', component: ProfilePage.component() };
+    app.routes.username_requests = { path: '/username-requests', component: RequestsPage };
+    app.routes.username_history = { path: '/u/:username/history', component: ProfilePage };
+
+    app.usernameRequests = new RequestsListState(app);
 
     addRequestSetting();
     addRequestDropdown();
