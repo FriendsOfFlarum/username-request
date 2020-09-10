@@ -16,6 +16,7 @@ use Flarum\User\Exception\PermissionDeniedException;
 use FoF\UserRequest\Api\Serializer\RequestSerializer;
 use FoF\UserRequest\Command\CreateRequest;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 
@@ -54,12 +55,12 @@ class CreateRequestController extends AbstractCreateController
     {
         $actor = $request->getAttribute('actor');
 
-        if (!$actor->checkPassword(array_get($request->getParsedBody(), 'meta.password'))) {
+        if (!$actor->checkPassword(Arr::get($request->getParsedBody(), 'meta.password'))) {
             throw new PermissionDeniedException();
         }
 
         return $this->bus->dispatch(
-            new CreateRequest($actor, array_get($request->getParsedBody(), 'data', []))
+            new CreateRequest($actor, Arr::get($request->getParsedBody(), 'data', []))
         );
     }
 }

@@ -15,6 +15,7 @@ use Flarum\Api\Controller\AbstractShowController;
 use FoF\UserRequest\Api\Serializer\RequestSerializer;
 use FoF\UserRequest\Command\ActOnRequest;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 
@@ -41,7 +42,7 @@ class ActOnRequestController extends AbstractShowController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         $this->bus->dispatch(
-            new ActOnRequest(array_get($request->getQueryParams(), 'id'), $request->getAttribute('actor'), array_get($request->getParsedBody(), 'data', []))
+            new ActOnRequest(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
         );
     }
 }
