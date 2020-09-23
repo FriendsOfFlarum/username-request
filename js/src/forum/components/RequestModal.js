@@ -112,7 +112,7 @@ export default class FlagPostModal extends Modal {
 
         app.session.user.username_requests().delete();
 
-        this.successAlert = app.alerts.show(app.translator.trans('fof-username-request.forum.request.deleted'), { type: 'success' });
+        this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans('fof-username-request.forum.request.deleted'));
 
         app.session.user.username_requests = m.stream();
 

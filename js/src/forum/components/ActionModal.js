@@ -106,7 +106,7 @@ export default class ActionModal extends Modal {
                 action: this.approved(),
             })
             .then(() => {
-                this.successAlert = app.alerts.show(app.translator.trans('fof-username-request.forum.action.success'), { type: 'success' });
+                this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans('fof-username-request.forum.action.success'));
             });
 
         app.cache.username_requests.some((request, i) => {
