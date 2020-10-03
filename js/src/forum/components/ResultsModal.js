@@ -11,6 +11,7 @@
 
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
+import Stream from 'flarum/utils/Stream';
 
 export default class FlagPostModal extends Modal {
     oninit(vnode) {
@@ -61,7 +62,7 @@ export default class FlagPostModal extends Modal {
     }
 
     onremove() {
-        app.session.user.username_requests = m.stream();
+        app.session.user.username_requests = Stream();
         this.request.save({ delete: true });
     }
 }

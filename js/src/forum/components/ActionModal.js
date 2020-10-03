@@ -12,6 +12,7 @@
 import Button from 'flarum/components/Button';
 import Modal from 'flarum/components/Modal';
 import username from 'flarum/helpers/username';
+import Stream from 'flarum/utils/Stream';
 import withAttr from 'flarum/utils/withAttr';
 
 export default class ActionModal extends Modal {
@@ -20,9 +21,9 @@ export default class ActionModal extends Modal {
 
         this.request = this.attrs.request;
 
-        this.approved = m.stream('Rejected');
+        this.approved = Stream('Rejected');
 
-        this.reason = m.stream('');
+        this.reason = Stream('');
     }
 
     title() {

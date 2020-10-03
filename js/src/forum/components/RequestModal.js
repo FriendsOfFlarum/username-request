@@ -9,7 +9,7 @@
  *
  */
 
-import Alert from 'flarum/components/Alert';
+import Stream from 'flarum/utils/Stream';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 
@@ -17,13 +17,13 @@ export default class FlagPostModal extends Modal {
     oninit(vnode) {
         super.oninit(vnode);
 
-        this.username = m.stream(app.session.user.username());
+        this.username = Stream(app.session.user.username());
 
         if (app.session.user.username_requests()) this.username(app.session.user.username_requests().requestedUsername());
 
         this.success = false;
 
-        this.password = m.stream('');
+        this.password = Stream('');
     }
 
     className() {
@@ -114,7 +114,7 @@ export default class FlagPostModal extends Modal {
 
         this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans('fof-username-request.forum.request.deleted'));
 
-        app.session.user.username_requests = m.stream();
+        app.session.user.username_requests = Stream();
 
         this.hide();
     }
@@ -141,7 +141,7 @@ export default class FlagPostModal extends Modal {
                 }
             )
             .then(request => {
-                app.session.user.username_requests = m.stream(request);
+                app.session.user.username_requests = Stream(request);
                 this.success = true;
             })
             .catch(() => {})
