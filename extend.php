@@ -12,7 +12,6 @@
 namespace FoF\UserRequest;
 
 use Flarum\Api\Event\Serializing;
-use Flarum\Event\ConfigureModelDates;
 use Flarum\Extend;
 use Flarum\User\User;
 use FoF\UserRequest\Api\Controller;
@@ -37,7 +36,6 @@ return [
     new Extend\Locales(__DIR__.'/resources/locale'),
     function (Dispatcher $events) {
         $events->listen(Serializing::class, Listeners\AddApiAttributes::class);
-        $events->listen(ConfigureModelDates::class, Listeners\AddApiDates::class);
 
         $events->subscribe(Listeners\AddRelationships::class);
     },
