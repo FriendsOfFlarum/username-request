@@ -16,7 +16,6 @@ use Flarum\Event\ConfigureModelDates;
 use Flarum\Extend;
 use Flarum\User\User;
 use FoF\UserRequest\Api\Controller;
-use FoF\UserRequest\UsernameRequest;
 use Illuminate\Contracts\Events\Dispatcher;
 
 return [
