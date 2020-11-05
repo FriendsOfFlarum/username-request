@@ -11,15 +11,12 @@
 
 namespace FoF\UserRequest\Command;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\UserRepository;
 use Flarum\User\UserValidator;
 use FoF\UserRequest\UsernameRequest;
 
 class ActOnRequestHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @var UserValidator
      */
@@ -61,7 +58,7 @@ class ActOnRequestHandler
             return $usernameRequest->delete();
         }
 
-        $this->assertCan($actor, 'user.viewUsernameRequests');
+        $actor->assertCan('user.viewUsernameRequests');
 
         $usernameRequest->status = $data['attributes']['action'];
 

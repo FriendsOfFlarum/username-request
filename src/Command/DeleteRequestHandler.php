@@ -11,12 +11,8 @@
 
 namespace FoF\UserRequest\Command;
 
-use Flarum\User\AssertPermissionTrait;
-
 class DeleteRequestHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @param DeleteRequest $command
      *
@@ -28,7 +24,7 @@ class DeleteRequestHandler
     {
         $actor = $command->actor;
 
-        $this->assertCan($actor, 'user.requestUsername');
+        $actor->assertCan('user.requestUsername');
 
         $usernameRequest = $actor->username_requests();
 

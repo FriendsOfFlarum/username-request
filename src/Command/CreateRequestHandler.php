@@ -11,14 +11,11 @@
 
 namespace FoF\UserRequest\Command;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\UserValidator;
 use FoF\UserRequest\UsernameRequest;
 
 class CreateRequestHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @var UserValidator
      */
@@ -47,7 +44,7 @@ class CreateRequestHandler
         $actor = $command->actor;
         $username = $command->data['attributes']['username'];
 
-        $this->assertCan($actor, 'user.requestUsername');
+        $actor->assertCan('user.requestUsername');
 
         $this->validator->assertValid(['username' => $username]);
 
