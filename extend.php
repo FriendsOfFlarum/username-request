@@ -14,7 +14,9 @@ namespace FoF\UserRequest;
 use Flarum\Api\Event\Serializing;
 use Flarum\Event\ConfigureModelDates;
 use Flarum\Extend;
+use Flarum\User\User;
 use FoF\UserRequest\Api\Controller;
+use FoF\UserRequest\UsernameRequest;
 use Illuminate\Contracts\Events\Dispatcher;
 
 return [
@@ -32,6 +34,7 @@ return [
         ->patch('/username-requests/{id}', 'username.request.act', Controller\ActOnRequestController::class)
         ->delete('/username-requests/{id}', 'username.request.delete', Controller\DeleteRequestController::class),
 
+    (new Extend\Model(User::class))->hasOne('username_requests', UsernameRequest::class, 'user_id'),
     new Extend\Locales(__DIR__.'/resources/locale'),
     function (Dispatcher $events) {
         $events->listen(Serializing::class, Listeners\AddApiAttributes::class);

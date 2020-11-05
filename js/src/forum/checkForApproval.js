@@ -16,7 +16,7 @@ export default function() {
     return new Promise(() => {
         setTimeout(() => {
             if (app.session.user && app.session.user.username_requests() && app.session.user.username_requests().status() !== 'Sent') {
-                app.modal.show(new ResultsModal());
+                app.modal.show(ResultsModal);
             }
         }, 1000);
     });

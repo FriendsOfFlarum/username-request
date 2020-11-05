@@ -17,8 +17,6 @@ use Flarum\Api\Event\WillSerializeData;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Api\Serializer\UserSerializer;
 use Flarum\Event\GetApiRelationship;
-use Flarum\Event\GetModelRelationship;
-use Flarum\User\User;
 use FoF\UserRequest\Api\Serializer\RequestSerializer;
 use FoF\UserRequest\UsernameRequest;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -30,22 +28,9 @@ class AddRelationships
      */
     public function subscribe(Dispatcher $events)
     {
-        $events->listen(GetModelRelationship::class, [$this, 'getModelRelationship']);
         $events->listen(GetApiRelationship::class, [$this, 'getApiRelationship']);
         $events->listen(WillGetData::class, [$this, 'includeRequestsRelationship']);
         $events->listen(WillSerializeData::class, [$this, 'prepareApiData']);
-    }
-
-    /**
-     * @param GetModelRelationship $event
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function getModelRelationship(GetModelRelationship $event)
-    {
-        if ($event->isRelationship(User::class, 'username_requests')) {
-            return $event->model->hasOne(UsernameRequest::class, 'user_id');
-        }
     }
 
     /**

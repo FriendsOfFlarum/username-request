@@ -14,21 +14,23 @@ import NotificationsDropdown from 'flarum/components/NotificationsDropdown';
 import RequestsList from './RequestsList';
 
 export default class RequestsDropdown extends NotificationsDropdown {
-    static initProps(props) {
-        props.label = props.label || app.translator.trans('fof-username-request.forum.dropdown.tooltip');
-        props.icon = props.icon || 'fas fa-user-edit';
+    static initAttrs(attrs) {
+        attrs.label = attrs.label || app.translator.trans('fof-username-request.forum.dropdown.tooltip');
+        attrs.icon = attrs.icon || 'fas fa-user-edit';
 
-        super.initProps(props);
+        super.initAttrs(attrs);
     }
 
-    init() {
-        super.init();
-
-        this.list = new RequestsList();
+    getMenu() {
+        return (
+            <div className={'Dropdown-menu ' + this.attrs.menuClassName} onclick={this.menuClick.bind(this)}>
+                {this.showing ? RequestsList.component({ state: app.usernameRequests }) : ''}
+            </div>
+        );
     }
 
     goToRoute() {
-        m.route(app.route('username_requests'));
+        m.route.set(app.route('username_requests'));
     }
 
     getUnreadCount() {

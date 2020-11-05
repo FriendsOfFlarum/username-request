@@ -13,8 +13,8 @@ import UserPage from 'flarum/components/UserPage';
 import humanTime from 'flarum/helpers/humanTime';
 
 export default class ProfileConfigurePane extends UserPage {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
         this.loading = true;
 
         this.loadUser(m.route.param('username'));

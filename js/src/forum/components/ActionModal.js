@@ -9,20 +9,21 @@
  *
  */
 
-import Alert from 'flarum/components/Alert';
 import Button from 'flarum/components/Button';
 import Modal from 'flarum/components/Modal';
 import username from 'flarum/helpers/username';
+import Stream from 'flarum/utils/Stream';
+import withAttr from 'flarum/utils/withAttr';
 
 export default class ActionModal extends Modal {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
-        this.request = this.props.request;
+        this.request = this.attrs.request;
 
-        this.approved = m.prop('Rejected');
+        this.approved = Stream('Rejected');
 
-        this.reason = m.prop('');
+        this.reason = Stream('');
     }
 
     title() {
@@ -52,7 +53,7 @@ export default class ActionModal extends Modal {
                                 name="approved"
                                 value="Approved"
                                 checked={this.approved() === 'Approved'}
-                                onclick={m.withAttr('value', this.approved)}
+                                onclick={withAttr('value', this.approved)}
                             />
                             {app.translator.trans('fof-username-request.forum.action.approval_label')}
                         </label>
@@ -62,7 +63,7 @@ export default class ActionModal extends Modal {
                                 name="rejected"
                                 value="Rejected"
                                 checked={this.approved() === 'Rejected'}
-                                onclick={m.withAttr('value', this.approved)}
+                                onclick={withAttr('value', this.approved)}
                             />
                             {app.translator.trans('fof-username-request.forum.action.rejected_label')}
                         </label>
@@ -75,7 +76,7 @@ export default class ActionModal extends Modal {
                                     className="FormControl"
                                     value={this.reason()}
                                     disabled={this.loading}
-                                    oninput={m.withAttr('value', this.reason)}
+                                    oninput={withAttr('value', this.reason)}
                                 />
                             </div>
                         </div>
@@ -88,8 +89,7 @@ export default class ActionModal extends Modal {
                             type: 'submit',
                             loading: this.loading,
                             disabled: this.approved() === 'Rejected' && !this.reason() ? true : false,
-                            children: app.translator.trans('fof-username-request.forum.action.submit_button'),
-                        })}
+                        }, app.translator.trans('fof-username-request.forum.action.submit_button'))}
                     </div>
                 </div>
             </div>
@@ -107,12 +107,7 @@ export default class ActionModal extends Modal {
                 action: this.approved(),
             })
             .then(() => {
-                app.alerts.show(
-                    (this.successAlert = new Alert({
-                        type: 'success',
-                        children: app.translator.trans('fof-username-request.forum.action.success'),
-                    }))
-                );
+                this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans('fof-username-request.forum.action.success'));
             });
 
         app.cache.username_requests.some((request, i) => {

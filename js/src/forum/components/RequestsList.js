@@ -18,7 +18,9 @@ import humanTime from 'flarum/helpers/humanTime';
 import ActionModal from './ActionModal';
 
 export default class FlagList extends Component {
-    init() {
+    oninit(vnode) {
+        super.oninit(vnode);
+
         this.loading = false;
     }
 
@@ -66,27 +68,6 @@ export default class FlagList extends Component {
     }
 
     showModal(request) {
-        app.modal.show(new ActionModal({ request }));
-    }
-
-    load() {
-        if (app.cache.username_requests) {
-            return;
-        }
-
-        this.loading = true;
-        m.redraw();
-
-        app.store
-            .find('username-requests')
-            .then(requests => {
-                delete requests.payload;
-                app.cache.username_requests = requests.sort((a, b) => a.createdAt() - b.createdAt());
-            })
-            .catch(() => {})
-            .then(() => {
-                this.loading = false;
-                m.redraw();
-            });
+        app.modal.show(ActionModal, { request });
     }
 }

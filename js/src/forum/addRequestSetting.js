@@ -23,10 +23,10 @@ export default function() {
                     {
                         className: 'Button',
                         onclick: () => {
-                            app.modal.show(new RequestModal());
+                            app.modal.show(RequestModal);
                         },
                     },
-                    [app.translator.trans('fof-username-request.forum.account_label')]
+                    app.translator.trans('fof-username-request.forum.account_label')
                 ),
                 10
             );
