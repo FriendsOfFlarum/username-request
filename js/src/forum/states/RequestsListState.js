@@ -22,11 +22,11 @@ export default class RequestsListState {
 
         app.store
             .find('username-requests')
-            .then(requests => {
+            .then((requests) => {
                 delete requests.payload;
                 app.cache.username_requests = requests.sort((a, b) => a.createdAt() - b.createdAt());
             })
-            .catch(() => { })
+            .catch(() => {})
             .then(() => {
                 this.loading = false;
                 m.redraw();

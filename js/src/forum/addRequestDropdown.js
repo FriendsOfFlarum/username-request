@@ -14,8 +14,8 @@ import app from 'flarum/app';
 import HeaderSecondary from 'flarum/components/HeaderSecondary';
 import RequestsDropdown from './components/RequestsDropdown';
 
-export default function() {
-    extend(HeaderSecondary.prototype, 'items', function(items) {
+export default function () {
+    extend(HeaderSecondary.prototype, 'items', function (items) {
         if (
             (app.forum.data.relationships.username_requests &&
                 app.forum.data.relationships.username_requests.data.length &&

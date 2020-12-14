@@ -14,15 +14,18 @@ import app from 'flarum/app';
 import LinkButton from 'flarum/components/LinkButton';
 import UserPage from 'flarum/components/UserPage';
 
-export default function() {
-    extend(UserPage.prototype, 'navItems', function(items) {
+export default function () {
+    extend(UserPage.prototype, 'navItems', function (items) {
         if (this.user.usernameHistory()) {
             items.add(
                 'username-requests',
-                LinkButton.component({
-                    href: app.route('username_history', { username: this.user.username() }),
-                    icon: 'fas fa-user-edit',
-                }, app.translator.trans('fof-username-request.forum.profile_link'))
+                LinkButton.component(
+                    {
+                        href: app.route('username_history', { username: this.user.username() }),
+                        icon: 'fas fa-user-edit',
+                    },
+                    app.translator.trans('fof-username-request.forum.profile_link')
+                )
             );
         }
     });
