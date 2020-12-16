@@ -23,6 +23,10 @@ export default class RequestsPage extends Page {
     }
 
     view() {
-        return <div className="RequestsPage"><RequestsList state={app.usernameRequests}></RequestsList></div>;
+        return (
+            <div className="RequestsPage">
+                <RequestsList state={app.usernameRequests}></RequestsList>
+            </div>
+        );
     }
 }

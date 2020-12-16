@@ -12,7 +12,7 @@
 import app from 'flarum/app';
 import ResultsModal from './components/ResultsModal';
 
-export default function() {
+export default function () {
     return new Promise(() => {
         setTimeout(() => {
             if (app.session.user && app.session.user.username_requests() && app.session.user.username_requests().status() !== 'Sent') {

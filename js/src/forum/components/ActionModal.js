@@ -84,12 +84,15 @@ export default class ActionModal extends Modal {
                         ''
                     )}
                     <div className="Form-group">
-                        {Button.component({
-                            className: 'Button Button--primary Button--block',
-                            type: 'submit',
-                            loading: this.loading,
-                            disabled: this.approved() === 'Rejected' && !this.reason() ? true : false,
-                        }, app.translator.trans('fof-username-request.forum.action.submit_button'))}
+                        {Button.component(
+                            {
+                                className: 'Button Button--primary Button--block',
+                                type: 'submit',
+                                loading: this.loading,
+                                disabled: this.approved() === 'Rejected' && !this.reason() ? true : false,
+                            },
+                            app.translator.trans('fof-username-request.forum.action.submit_button')
+                        )}
                     </div>
                 </div>
             </div>

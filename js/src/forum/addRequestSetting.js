@@ -14,8 +14,8 @@ import Button from 'flarum/components/Button';
 import SettingsPage from 'flarum/components/SettingsPage';
 import RequestModal from './components/RequestModal';
 
-export default function() {
-    extend(SettingsPage.prototype, 'accountItems', items => {
+export default function () {
+    extend(SettingsPage.prototype, 'accountItems', (items) => {
         if (app.forum.attribute('canRequestUsername')) {
             items.add(
                 'username-request',

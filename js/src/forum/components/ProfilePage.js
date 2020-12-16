@@ -27,7 +27,7 @@ export default class ProfileConfigurePane extends UserPage {
                     .usernameHistory()
                     .slice(0)
                     .reverse()
-                    .map(username => {
+                    .map((username) => {
                         var oldUsername = Object.keys(username)[0];
                         return (
                             <tr>

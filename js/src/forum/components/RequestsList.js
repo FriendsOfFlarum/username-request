@@ -35,7 +35,7 @@ export default class FlagList extends Component {
                 <div className="NotificationList-content">
                     <ul className="NotificationGroup-content">
                         {requests.length ? (
-                            requests.map(request => {
+                            requests.map((request) => {
                                 return (
                                     <li>
                                         <a onclick={this.showModal.bind(this, request)} className="Notification Request">

@@ -83,19 +83,25 @@ export default class FlagPostModal extends Modal {
                         />
                     </div>
                     <div className="Form-group">
-                        {Button.component({
-                            className: 'Button Button--primary Button--block',
-                            type: 'submit',
-                            loading: this.loading,
-                        }, app.translator.trans('fof-username-request.forum.request.submit_button'))}
+                        {Button.component(
+                            {
+                                className: 'Button Button--primary Button--block',
+                                type: 'submit',
+                                loading: this.loading,
+                            },
+                            app.translator.trans('fof-username-request.forum.request.submit_button')
+                        )}
                     </div>
                     {app.session.user.username_requests() ? (
                         <div className="Form-group">
-                            {Button.component({
-                                className: 'Button Button--primary Button--block',
-                                onclick: this.deleteRequest.bind(this),
-                                loading: this.loading,
-                            }, app.translator.trans('fof-username-request.forum.request.delete_button'))}
+                            {Button.component(
+                                {
+                                    className: 'Button Button--primary Button--block',
+                                    onclick: this.deleteRequest.bind(this),
+                                    loading: this.loading,
+                                },
+                                app.translator.trans('fof-username-request.forum.request.delete_button')
+                            )}
                         </div>
                     ) : (
                         ''
@@ -140,7 +146,7 @@ export default class FlagPostModal extends Modal {
                     errorHandler: this.onerror.bind(this),
                 }
             )
-            .then(request => {
+            .then((request) => {
                 app.session.user.username_requests = Stream(request);
                 this.success = true;
             })
