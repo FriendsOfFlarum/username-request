@@ -31,36 +31,26 @@ export default class ResultsModal extends Modal {
     }
 
     content() {
-        if (this.request.status() === 'Approved') {
-            return (
-                <div className="Modal-body">
-                    <div className="Form Form--centered">
-                        <h2>{app.translator.trans(`${this.translationPrefix}.approved`)}</h2>
-                        <h3>{app.translator.trans(`${this.translationPrefix}.new_username`, { username: app.session.user.username() })}</h3>
-                        <div className="Form-group">
-                            <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
-                                {app.translator.trans(`${ this.translationPrefix }.dismiss_button`)}
-                            </Button>
-                        </div>
+        return (
+            <div className="Modal-body">
+                <div className="Form Form--centered">
+                    {this.request.status() === 'Approved' ?
+                        [
+                            <h2>{app.translator.trans(`${this.translationPrefix}.approved`)}</h2>,
+                            <h3>{app.translator.trans(`${this.translationPrefix}.new_username`, { username: app.session.user.username() })}</h3>
+                        ] : [
+                            <h2>{app.translator.trans(`${this.translationPrefix}.rejected`)}</h2>,
+                            <h3>{app.translator.trans(`${this.translationPrefix}.reason`, { reason: this.request.reason(), i: <i /> })}</h3>,
+                            <p className="helpText">{app.translator.trans(`${this.translationPrefix}.resubmit`)}</p>
+                        ]}
+                    <div className="Form-group">
+                        <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
+                            {app.translator.trans(`${this.translationPrefix}.dismiss_button`)}
+                        </Button>
                     </div>
                 </div>
-            );
-        } else {
-            return (
-                <div className="Modal-body">
-                    <div className="Form Form--centered">
-                        <h2>{app.translator.trans(`${this.translationPrefix}.rejected`)}</h2>
-                        <h3>{app.translator.trans(`${this.translationPrefix}.reason`, { reason: this.request.reason(), i: <i /> })}</h3>
-                        <p className="helpText">{app.translator.trans(`${this.translationPrefix}.resubmit`)}</p>
-                        <div className="Form-group">
-                            <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
-                                {app.translator.trans(`${this.translationPrefix}.dismiss_button`)}
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
+            </div>
+        )
     }
 
     onremove() {
