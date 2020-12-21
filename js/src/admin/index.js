@@ -29,5 +29,13 @@ app.initializers.add('fof-username-request', (app) => {
                 permission: 'user.requestUsername',
             },
             'start'
+        )
+        .registerPermission(
+            {
+                icon: 'fa fa-user-edit',
+                label: app.translator.trans('fof-username-request.admin.permissions.request_nickname'),
+                permission: 'user.requestNickname',
+            },
+            'start'
         );
 });

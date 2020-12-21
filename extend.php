@@ -48,7 +48,10 @@ return [
 
     (new Extend\ApiSerializer(Serializer\ForumSerializer::class))
         ->attribute('canRequestUsername', function (Serializer\ForumSerializer $serializer) {
-            return $serializer->getActor()->hasPermissionLike('user.requestUsername');
+            return $serializer->getActor()->hasPermission('user.requestUsername');
+        })
+        ->attribute('canRequestNickname', function (Serializer\ForumSerializer $serializer) {
+            return $serializer->getActor()->hasPermission('user.requestNickname');
         })
         ->hasMany('username_requests', RequestSerializer::class),
 

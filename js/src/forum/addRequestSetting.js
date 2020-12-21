@@ -15,7 +15,7 @@ import SettingsPage from 'flarum/components/SettingsPage';
 import RequestModal from './components/RequestModal';
 
 export default function () {
-    extend(SettingsPage.prototype, 'accountItems', (items) => {
+    extend(SettingsPage.prototype, 'accountItems', function (items) {
         if (app.forum.attribute('canRequestUsername')) {
             items.add(
                 'username-request',
@@ -27,6 +27,26 @@ export default function () {
                         },
                     },
                     app.translator.trans('fof-username-request.forum.account_label')
+                ),
+                10
+            );
+        }
+        if (
+            app.forum.attribute('displayNameDriver') === 'nickname' &&
+            app.forum.attribute('canRequestNickname') &&
+            !this.user.attribute('canEditOwnNickname') &&
+            'flarum-nicknames' in flarum.extensions
+        ) {
+            items.add(
+                'nickname-request',
+                Button.component(
+                    {
+                        className: 'Button',
+                        onclick: () => {
+                            app.modal.show(RequestModal, { nickname: true });
+                        },
+                    },
+                    app.translator.trans('fof-username-request.forum.nickname_request_label')
                 ),
                 10
             );
