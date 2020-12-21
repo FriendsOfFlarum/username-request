@@ -17,7 +17,9 @@ export default class ResultsModal extends Modal {
     oninit(vnode) {
         super.oninit(vnode);
 
-        this.request = app.session.user.username_requests();
+        this.userRequestAttr = `last${this.attrs.nickname ? 'Nickname' : 'Username'}Request`;
+
+        this.request = app.session.user[this.userRequestAttr]();
 
         this.translationPrefix = `fof-username-request.forum.${this.request.forNickname() ? 'nickname' : 'username'}_modals.results`;
     }
@@ -54,7 +56,7 @@ export default class ResultsModal extends Modal {
     }
 
     onremove() {
-        app.session.user.username_requests = Stream();
+        app.session.user[this.userRequestAttr] = Stream();
         this.request.save({ delete: true });
     }
 }

@@ -17,9 +17,13 @@ export default class RequestModal extends Modal {
     oninit(vnode) {
         super.oninit(vnode);
 
-        this.username = Stream(app.session.user.username());
+        this.username = Stream(this.attrs.nickname ? app.session.user.displayName() : app.session.user.username());
 
-        if (app.session.user.username_requests()) this.username(app.session.user.username_requests().requestedUsername());
+        this.userRequestAttr = `last${this.attrs.nickname ? 'Nickname' : 'Username'}Request`;
+
+        this.lastRequest = app.session.user[this.userRequestAttr]();
+
+        if (this.lastRequest) this.username(this.lastRequest.requestedUsername());
 
         this.success = false;
 
@@ -55,10 +59,10 @@ export default class RequestModal extends Modal {
         return (
             <div className="Modal-body">
                 <div className="Form Form--centered">
-                    {app.session.user.username_requests() ? (
+                    {this.lastRequest ? (
                         <p className="helpText">
                             {app.translator.trans(`${this.translationPrefix}.current_request`, {
-                                name: app.session.user.username_requests().requestedUsername(),
+                                name: this.lastRequest.requestedUsername(),
                             })}
                         </p>
                     ) : (
@@ -94,7 +98,7 @@ export default class RequestModal extends Modal {
                             app.translator.trans(`${this.translationPrefix}.submit_button`)
                         )}
                     </div>
-                    {app.session.user.username_requests() ? (
+                    {this.lastRequest ? (
                         <div className="Form-group">
                             {Button.component(
                                 {
@@ -118,11 +122,11 @@ export default class RequestModal extends Modal {
 
         this.loading = true;
 
-        app.session.user.username_requests().delete();
+        this.lastRequest.delete();
 
         this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans(`${this.translationPrefix}.deleted`));
 
-        app.session.user.username_requests = Stream();
+        app.session.user[this.userRequestAttr] = Stream();
 
         this.hide();
     }
@@ -152,7 +156,8 @@ export default class RequestModal extends Modal {
                 }
             )
             .then((request) => {
-                app.session.user.username_requests = Stream(request);
+
+                app.session.user[this.userRequestAttr] = Stream(request);
                 this.success = true;
                 this.alertAttrs = null;
             })

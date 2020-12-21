@@ -36,7 +36,13 @@ return [
         ->delete('/username-requests/{id}', 'username.request.delete', Controller\DeleteRequestController::class),
 
     (new Extend\Model(User::class))
-        ->hasOne('username_requests', UsernameRequest::class, 'user_id'),
+        ->hasMany('nameChangeRequests', UsernameRequest::class, 'user_id')
+        ->relationship('lastNicknameRequest', function ($user) {
+            return $user->hasOne(UsernameRequest::class, 'user_id', null)->where('for_nickname', true);
+        })
+        ->relationship('lastUsernameRequest', function ($user) {
+            return $user->hasOne(UsernameRequest::class, 'user_id', null)->where('for_nickname', false);
+        }),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
@@ -44,7 +50,8 @@ return [
         ->attribute('usernameHistory', function (Serializer\UserSerializer $serializer, User $user) {
             return json_decode($user->username_history);
         })
-        ->hasOne('username_requests', RequestSerializer::class),
+        ->hasOne('lastNicknameRequest', RequestSerializer::class)
+        ->hasOne('lastUsernameRequest', RequestSerializer::class),
 
     (new Extend\ApiSerializer(Serializer\ForumSerializer::class))
         ->attribute('canRequestUsername', function (Serializer\ForumSerializer $serializer) {
@@ -60,8 +67,8 @@ return [
         ->prepareDataForSerialization(AddUsernameRequests::class),
 
     (new Extend\ApiController(ListUsersController::class))
-        ->addInclude('username_requests'),
+        ->addInclude(['lastNicknameRequest', 'lastUsernameRequest']),
 
     (new Extend\ApiController(ShowUserController::class))
-        ->addInclude('username_requests'),
+        ->addInclude(['lastNicknameRequest', 'lastUsernameRequest']),
 ];

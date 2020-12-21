@@ -15,7 +15,10 @@ import ResultsModal from './components/ResultsModal';
 export default function () {
     return new Promise(() => {
         setTimeout(() => {
-            if (app.session.user && app.session.user.username_requests() && app.session.user.username_requests().status() !== 'Sent') {
+            if (app.session.user &&
+                (app.session.user.lastNicknameRequest() && app.session.user.lastNicknameRequest().status() !== 'Sent' ||
+                app.session.user.lastUsernameRequest() && app.session.user.lastUsernameRequest().status() !== 'Sent')
+            ) {
                 app.modal.show(ResultsModal);
             }
         }, 1000);

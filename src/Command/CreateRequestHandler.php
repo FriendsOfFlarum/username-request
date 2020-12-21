@@ -57,6 +57,7 @@ class CreateRequestHandler
 
         $usernameRequest = UsernameRequest::firstOrNew([
             'user_id' => $actor->id,
+            'for_nickname' => $forNickname,
         ]);
 
         $usernameRequest->user_id = $actor->id;
