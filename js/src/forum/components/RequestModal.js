@@ -58,7 +58,7 @@ export default class RequestModal extends Modal {
                     {app.session.user.username_requests() ? (
                         <p className="helpText">
                             {app.translator.trans(`${this.translationPrefix}.current_request`, {
-                                username: app.session.user.username_requests().requestedUsername(),
+                                name: app.session.user.username_requests().requestedUsername(),
                             })}
                         </p>
                     ) : (
@@ -142,7 +142,10 @@ export default class RequestModal extends Modal {
         app.store
             .createRecord('username-requests')
             .save(
-                { username: this.username() },
+                {
+                    username: this.username(),
+                    forNickname: this.attrs.nickname,
+                },
                 {
                     meta: { password: this.password() },
                     errorHandler: this.onerror.bind(this),

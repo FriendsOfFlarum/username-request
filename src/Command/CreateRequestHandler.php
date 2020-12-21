@@ -42,11 +42,15 @@ class CreateRequestHandler
     public function handle(CreateRequest $command)
     {
         $actor = $command->actor;
-        $username = $command->data['attributes']['username'];
 
         $actor->assertCan('user.requestUsername');
 
-        $this->validator->assertValid(['username' => $username]);
+        $username = $command->data['attributes']['username'];
+        $forNickname = $command->data['attributes']['forNickname'];
+
+        $attr = $forNickname ? 'nickname' : 'username';
+
+        $this->validator->assertValid([$attr => $username]);
 
         UsernameRequest::unguard();
 
@@ -56,6 +60,7 @@ class CreateRequestHandler
 
         $usernameRequest->user_id = $actor->id;
         $usernameRequest->requested_username = $username;
+        $usernameRequest->for_nickname = $forNickname;
         $usernameRequest->status = 'Sent';
         $usernameRequest->reason = null;
         $usernameRequest->created_at = time();

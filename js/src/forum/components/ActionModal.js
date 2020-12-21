@@ -42,8 +42,8 @@ export default class ActionModal extends Modal {
                 <div className="Form">
                     <h3 className="Notification-content">
                         {app.translator.trans(`${this.translationPrefix}.name`, {
-                            username: username(this.request.user()),
-                            newUsername: this.request.requestedUsername(),
+                            name: username(this.request.user()),
+                            requestedName: this.request.requestedUsername(),
                         })}
                     </h3>
                     <p className="help">{app.translator.trans(`${this.translationPrefix}.help_text`)}</p>

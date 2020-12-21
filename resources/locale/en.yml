@@ -15,18 +15,18 @@ fof-username-request:
         submit_button: Submit
         reason_title: Reason for Rejection
         success: Decision sent.
-        name: '{nickname} has requested to change their nickname to "{newNickname}"'
+        name: '{name} has requested to change their nickname to "{requestedName}"'
       results:
         title: Nickname Change Request
         approved: 'Your nickname change request has been approved'
         dismiss_button: => core.ref.okay
-        new_nickname: 'Your nickname has been successfully changed to: {nickname}'
+        new_nickname: 'Your nickname has been successfully changed to: {name}'
         rejected: Your nickname change request was rejected
         reason: 'Reason for rejection: <i>"{reason}"</i>.'
         resubmit: At this time you may resubmit a new nickname change request from your account settings if you so choose to.
       request:
         title: Request Nickname Change
-        current_request: You have already requested to change your nickname to "{nickname}". You can either update your request or delete it.
+        current_request: You have already requested to change your nickname to "{name}". You can either update your request or delete it.
         submit_button: Submit Request
         delete_button: Delete Request
         confirmation_message: Your nickname change request has been submitted and is pending approval.
@@ -43,18 +43,18 @@ fof-username-request:
         submit_button: Submit
         reason_title: Reason for Rejection
         success: Decision sent.
-        name: '{username} has requested to change their username to "{newUsername}"'
+        name: '{name} has requested to change their username to "{requestedName}"'
       results:
         title: Username Change Request
         approved: 'Your username change request has been approved'
         dismiss_button: => core.ref.okay
-        new_username: 'Your username has been successfully changed to: {username}'
+        new_username: 'Your username has been successfully changed to: {name}'
         rejected: Your username change request was rejected
         reason: 'Reason for rejection: <i>"{reason}"</i>.'
         resubmit: At this time you may resubmit a new username change request from your account settings if you so choose to.
       request:
         title: Request Username Change
-        current_request: You have already requested to change your username to "{username}". You can either update your request or delete it.
+        current_request: You have already requested to change your username to "{name}". You can either update your request or delete it.
         submit_button: Submit Request
         delete_button: Delete Request
         confirmation_message: Your username change request has been submitted and is pending approval.
