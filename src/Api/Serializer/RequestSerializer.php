@@ -31,6 +31,7 @@ class RequestSerializer extends AbstractSerializer
             'status'             => $username_request->status,
             'reason'             => $username_request->reason,
             'createdAt'          => $this->formatDate($username_request->created_at),
+            'forNickname'        => $username_request->for_nickname,
         ];
     }
 

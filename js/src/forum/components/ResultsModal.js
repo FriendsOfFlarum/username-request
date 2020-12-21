@@ -13,11 +13,13 @@ import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 import Stream from 'flarum/utils/Stream';
 
-export default class FlagPostModal extends Modal {
+export default class ResultsModal extends Modal {
     oninit(vnode) {
         super.oninit(vnode);
 
         this.request = app.session.user.username_requests();
+
+        this.translationPrefix = `fof-username-request.forum.${this.request.forNickname() ? 'nickname' : 'username'}_modals.results`;
     }
 
     className() {
@@ -25,7 +27,7 @@ export default class FlagPostModal extends Modal {
     }
 
     title() {
-        return app.translator.trans('fof-username-request.forum.results.title');
+        return app.translator.trans(`${this.translationPrefix}.title`);
     }
 
     content() {
@@ -33,11 +35,11 @@ export default class FlagPostModal extends Modal {
             return (
                 <div className="Modal-body">
                     <div className="Form Form--centered">
-                        <h2>{app.translator.trans('fof-username-request.forum.results.approved')}</h2>
-                        <h3>{app.translator.trans('fof-username-request.forum.results.new_username', { username: app.session.user.username() })}</h3>
+                        <h2>{app.translator.trans(`${this.translationPrefix}.approved`)}</h2>
+                        <h3>{app.translator.trans(`${this.translationPrefix}.new_username`, { username: app.session.user.username() })}</h3>
                         <div className="Form-group">
                             <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
-                                {app.translator.trans('fof-username-request.forum.request.dismiss_button')}
+                                {app.translator.trans(`${ this.translationPrefix }.dismiss_button`)}
                             </Button>
                         </div>
                     </div>
@@ -47,12 +49,12 @@ export default class FlagPostModal extends Modal {
             return (
                 <div className="Modal-body">
                     <div className="Form Form--centered">
-                        <h2>{app.translator.trans('fof-username-request.forum.results.rejected')}</h2>
-                        <h3>{app.translator.trans('fof-username-request.forum.results.reason', { reason: this.request.reason(), i: <i /> })}</h3>
-                        <p className="helpText">{app.translator.trans('fof-username-request.forum.results.resubmit')}</p>
+                        <h2>{app.translator.trans(`${this.translationPrefix}.rejected`)}</h2>
+                        <h3>{app.translator.trans(`${this.translationPrefix}.reason`, { reason: this.request.reason(), i: <i /> })}</h3>
+                        <p className="helpText">{app.translator.trans(`${this.translationPrefix}.resubmit`)}</p>
                         <div className="Form-group">
                             <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
-                                {app.translator.trans('fof-username-request.forum.request.dismiss_button')}
+                                {app.translator.trans(`${this.translationPrefix}.dismiss_button`)}
                             </Button>
                         </div>
                     </div>

@@ -17,4 +17,5 @@ export default class UsernameRequest extends mixin(Model, {
     status: Model.attribute('status'),
     reason: Model.attribute('reason'),
     createdAt: Model.attribute('createdAt', Model.transformDate),
+    forNickname: Model.attribute('forNickname'),
 }) {}

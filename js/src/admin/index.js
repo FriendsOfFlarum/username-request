@@ -17,7 +17,7 @@ app.initializers.add('fof-username-request', (app) => {
         .registerPermission(
             {
                 icon: 'fa fa-user-edit',
-                label: app.translator.trans('fof-username-request.admin.permissions.moderate'),
+                label: app.translator.trans('fof-username-request.admin.permissions.moderate_requests'),
                 permission: 'user.viewUsernameRequests',
             },
             'moderate'
@@ -25,7 +25,7 @@ app.initializers.add('fof-username-request', (app) => {
         .registerPermission(
             {
                 icon: 'fa fa-user-edit',
-                label: app.translator.trans('fof-username-request.admin.permissions.start'),
+                label: app.translator.trans('fof-username-request.admin.permissions.request_nickname'),
                 permission: 'user.requestUsername',
             },
             'start'

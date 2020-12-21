@@ -13,7 +13,7 @@ import Stream from 'flarum/utils/Stream';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 
-export default class FlagPostModal extends Modal {
+export default class RequestModal extends Modal {
     oninit(vnode) {
         super.oninit(vnode);
 
@@ -24,6 +24,8 @@ export default class FlagPostModal extends Modal {
         this.success = false;
 
         this.password = Stream('');
+
+        this.translationPrefix = `fof-username-request.forum.${this.attrs.nickname ? 'nickname' : 'username'}_modals.request`;
     }
 
     className() {
@@ -31,7 +33,7 @@ export default class FlagPostModal extends Modal {
     }
 
     title() {
-        return app.translator.trans('fof-username-request.forum.request.title');
+        return app.translator.trans(`${this.translationPrefix}.title`);
     }
 
     content() {
@@ -39,10 +41,10 @@ export default class FlagPostModal extends Modal {
             return (
                 <div className="Modal-body">
                     <div className="Form Form--centered">
-                        <p className="helpText">{app.translator.trans('fof-username-request.forum.request.confirmation_message')}</p>
+                        <p className="helpText">{app.translator.trans(`${this.translationPrefix}.confirmation_message`)}</p>
                         <div className="Form-group">
                             <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
-                                {app.translator.trans('fof-username-request.forum.request.dismiss_button')}
+                                {app.translator.trans(`${this.translationPrefix}.dismiss_button`)}
                             </Button>
                         </div>
                     </div>
@@ -55,7 +57,7 @@ export default class FlagPostModal extends Modal {
                 <div className="Form Form--centered">
                     {app.session.user.username_requests() ? (
                         <p className="helpText">
-                            {app.translator.trans('fof-username-request.forum.request.current_request', {
+                            {app.translator.trans(`${this.translationPrefix}.current_request`, {
                                 username: app.session.user.username_requests().requestedUsername(),
                             })}
                         </p>
@@ -89,7 +91,7 @@ export default class FlagPostModal extends Modal {
                                 type: 'submit',
                                 loading: this.loading,
                             },
-                            app.translator.trans('fof-username-request.forum.request.submit_button')
+                            app.translator.trans(`${this.translationPrefix}.submit_button`)
                         )}
                     </div>
                     {app.session.user.username_requests() ? (
@@ -100,7 +102,7 @@ export default class FlagPostModal extends Modal {
                                     onclick: this.deleteRequest.bind(this),
                                     loading: this.loading,
                                 },
-                                app.translator.trans('fof-username-request.forum.request.delete_button')
+                                app.translator.trans(`${this.translationPrefix}.delete_button`)
                             )}
                         </div>
                     ) : (
@@ -118,7 +120,7 @@ export default class FlagPostModal extends Modal {
 
         app.session.user.username_requests().delete();
 
-        this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans('fof-username-request.forum.request.deleted'));
+        this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans(`${this.translationPrefix}.deleted`));
 
         app.session.user.username_requests = Stream();
 

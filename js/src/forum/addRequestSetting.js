@@ -26,7 +26,7 @@ export default function () {
                             app.modal.show(RequestModal);
                         },
                     },
-                    app.translator.trans('fof-username-request.forum.account_label')
+                    app.translator.trans('fof-username-request.forum.settings.username_request_button')
                 ),
                 10
             );
@@ -46,7 +46,7 @@ export default function () {
                             app.modal.show(RequestModal, { nickname: true });
                         },
                     },
-                    app.translator.trans('fof-username-request.forum.nickname_request_label')
+                    app.translator.trans('fof-username-request.forum.settings.nickname_request_button')
                 ),
                 10
             );
