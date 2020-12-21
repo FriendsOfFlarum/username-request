@@ -75,7 +75,7 @@ export default class RequestModal extends Modal {
                             className="FormControl"
                             placeholder={app.session.user.username()}
                             bidi={this.username}
-                            disabled={this.loading}
+                            disabled={this.deleteLoading || this.submitLoading}
                         />
                     </div>
                     <div className="Form-group">
@@ -85,7 +85,7 @@ export default class RequestModal extends Modal {
                             className="FormControl"
                             placeholder={app.translator.trans('core.forum.change_email.confirm_password_placeholder')}
                             bidi={this.password}
-                            disabled={this.loading}
+                            disabled={this.deleteLoading || this.submitLoading}
                         />
                     </div>
                     <div className="Form-group">
@@ -93,7 +93,7 @@ export default class RequestModal extends Modal {
                             {
                                 className: 'Button Button--primary Button--block',
                                 type: 'submit',
-                                loading: this.loading,
+                                loading: this.submitLoading,
                             },
                             app.translator.trans(`${this.translationPrefix}.submit_button`)
                         )}
@@ -104,7 +104,7 @@ export default class RequestModal extends Modal {
                                 {
                                     className: 'Button Button--primary Button--block',
                                     onclick: this.deleteRequest.bind(this),
-                                    loading: this.loading,
+                                    loading: this.deleteLoading,
                                 },
                                 app.translator.trans(`${this.translationPrefix}.delete_button`)
                             )}
@@ -120,7 +120,7 @@ export default class RequestModal extends Modal {
     deleteRequest(e) {
         e.preventDefault();
 
-        this.loading = true;
+        this.deleteLoading = true;
 
         this.lastRequest.delete();
 
@@ -141,7 +141,7 @@ export default class RequestModal extends Modal {
             return;
         }
 
-        this.loading = true;
+        this.submitLoading = true;
 
         app.store
             .createRecord('username-requests')
