@@ -154,6 +154,7 @@ export default class RequestModal extends Modal {
             .then((request) => {
                 app.session.user.username_requests = Stream(request);
                 this.success = true;
+                this.alertAttrs = null;
             })
             .catch(() => {})
             .then(this.loaded.bind(this));
@@ -161,7 +162,7 @@ export default class RequestModal extends Modal {
 
     onerror(error) {
         if (error.status === 401) {
-            error.alert.attrs.content = app.translator.trans('core.forum.change_email.incorrect_password_message');
+            error.alert.content = app.translator.trans('core.forum.change_email.incorrect_password_message');
         }
 
         super.onerror(error);
