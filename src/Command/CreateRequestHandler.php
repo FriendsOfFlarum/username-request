@@ -13,6 +13,7 @@ namespace FoF\UserRequest\Command;
 
 use Flarum\User\UserValidator;
 use FoF\UserRequest\UsernameRequest;
+use Illuminate\Support\Arr;
 
 class CreateRequestHandler
 {
@@ -45,8 +46,8 @@ class CreateRequestHandler
 
         $actor->assertCan('user.requestUsername');
 
-        $username = $command->data['attributes']['username'];
-        $forNickname = $command->data['attributes']['forNickname'];
+        $username = Arr::get($command->data, 'attributes.username');
+        $forNickname = Arr::get($command->data, 'attributes.forNickname', false);
 
         $attr = $forNickname ? 'nickname' : 'username';
 

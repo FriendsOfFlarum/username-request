@@ -66,7 +66,7 @@ class ActOnRequestHandler
             $attr = $usernameRequest->for_nickname ? 'nickname' : 'username';
             $this->validator->assertValid([$attr => $usernameRequest->requested_username]);
 
-            if ($attr = 'username') {
+            if ($attr === 'username') {
                 $usernameHistory = json_decode($user->username_history, true);
 
                 $usernameHistory === null ? $usernameHistory = [] : $usernameHistory;
@@ -76,7 +76,6 @@ class ActOnRequestHandler
             }
 
             $user->$attr = $usernameRequest->requested_username;
-
             $user->save();
         } else {
             $usernameRequest->reason = $data['attributes']['reason'];
