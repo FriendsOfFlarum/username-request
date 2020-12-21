@@ -20,7 +20,7 @@ fof-username-request:
         title: Nickname Change Request
         approved: 'Your nickname change request has been approved'
         dismiss_button: => core.ref.okay
-        new_nickname: 'Your nickname has been successfully changed to: {name}'
+        new_name: 'Your nickname has been successfully changed to: {name}'
         rejected: Your nickname change request was rejected
         reason: 'Reason for rejection: <i>"{reason}"</i>.'
         resubmit: At this time you may resubmit a new nickname change request from your account settings if you so choose to.
@@ -48,7 +48,7 @@ fof-username-request:
         title: Username Change Request
         approved: 'Your username change request has been approved'
         dismiss_button: => core.ref.okay
-        new_username: 'Your username has been successfully changed to: {name}'
+        new_name: 'Your username has been successfully changed to: {name}'
         rejected: Your username change request was rejected
         reason: 'Reason for rejection: <i>"{reason}"</i>.'
         resubmit: At this time you may resubmit a new username change request from your account settings if you so choose to.
