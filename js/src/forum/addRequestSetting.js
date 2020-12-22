@@ -28,7 +28,7 @@ export default function () {
                     },
                     app.translator.trans('fof-username-request.forum.settings.username_request_button')
                 ),
-                10
+                8
             );
         }
         if (
@@ -48,7 +48,7 @@ export default function () {
                     },
                     app.translator.trans('fof-username-request.forum.settings.nickname_request_button')
                 ),
-                10
+                8
             );
         }
     });
