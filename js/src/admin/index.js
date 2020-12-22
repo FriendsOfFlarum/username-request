@@ -25,7 +25,7 @@ app.initializers.add('fof-username-request', (app) => {
         .registerPermission(
             {
                 icon: 'fa fa-user-edit',
-                label: app.translator.trans('fof-username-request.admin.permissions.request_nickname'),
+                label: app.translator.trans('fof-username-request.admin.permissions.request_username'),
                 permission: 'user.requestUsername',
             },
             'start'
