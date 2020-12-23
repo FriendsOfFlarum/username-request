@@ -51,6 +51,12 @@ class CreateRequestHandler
 
         $attr = $forNickname ? 'nickname' : 'username';
 
+        // Setting nickname to username by making nickname null so
+        // it falls back to username.
+        if ($forNickname && $username === $actor->username) {
+            $username = null;
+        }
+
         $this->validator->assertValid([$attr => $username]);
 
         UsernameRequest::unguard();
