@@ -39,7 +39,7 @@ export default class ResultsModal extends Modal {
                     {this.request.status() === 'Approved' ?
                         [
                             <h2>{app.translator.trans(`${this.translationPrefix}.approved`)}</h2>,
-                            <h3>{app.translator.trans(`${this.translationPrefix}.new_name`, { name: app.session.user.username() })}</h3>
+                            <h3>{app.translator.trans(`${this.translationPrefix}.new_name`, { name: app.session.user.displayName() })}</h3>
                         ] : [
                             <h2>{app.translator.trans(`${this.translationPrefix}.rejected`)}</h2>,
                             <h3>{app.translator.trans(`${this.translationPrefix}.reason`, { reason: this.request.reason(), i: <i /> })}</h3>,
