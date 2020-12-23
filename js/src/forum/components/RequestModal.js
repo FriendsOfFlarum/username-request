@@ -136,7 +136,8 @@ export default class RequestModal extends Modal {
 
         this.alert = null;
 
-        if (this.username() === app.session.user.username()) {
+        const currentAttr = this.attrs.nickname ? app.session.user.displayName() : app.session.user.username();
+        if (this.username() === currentAttr) {
             this.hide();
             return;
         }
