@@ -32,7 +32,7 @@ class DeleteRequest
     /**
      * DeleteRequest constructor.
      *
-     * @param int $requestId
+     * @param int  $requestId
      * @param User $actor
      */
     public function __construct(int $requestId, User $actor)

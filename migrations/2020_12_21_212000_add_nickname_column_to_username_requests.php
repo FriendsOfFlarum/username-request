@@ -13,7 +13,7 @@ use Flarum\Database\Migration;
 
 return Migration::addColumns('username_requests', [
     'for_nickname' => [
-        'type' => 'boolean',
-        'default' => false
-    ]
+        'type'    => 'boolean',
+        'default' => false,
+    ],
 ]);
