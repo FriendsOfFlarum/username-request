@@ -12,7 +12,7 @@
 namespace FoF\UserRequest\Api\Controller;
 
 use Flarum\Api\Controller\AbstractCreateController;
-use Flarum\User\Exception\PermissionDeniedException;
+use Flarum\User\Exception\NotAuthenticatedException;
 use FoF\UserRequest\Api\Serializer\RequestSerializer;
 use FoF\UserRequest\Command\CreateRequest;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -56,7 +56,7 @@ class CreateRequestController extends AbstractCreateController
         $actor = $request->getAttribute('actor');
 
         if (!$actor->checkPassword(Arr::get($request->getParsedBody(), 'meta.password'))) {
-            throw new PermissionDeniedException();
+            throw new NotAuthenticatedException();
         }
 
         return $this->bus->dispatch(

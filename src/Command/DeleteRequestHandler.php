@@ -26,7 +26,7 @@ class DeleteRequestHandler
 
         $actor->assertCan('user.requestUsername');
 
-        $usernameRequest = $actor->username_requests();
+        $usernameRequest = $actor->nameChangeRequests()->where('id', $command->requestId)->first();
 
         $usernameRequest->delete();
 

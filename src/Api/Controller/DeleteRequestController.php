@@ -14,6 +14,7 @@ namespace FoF\UserRequest\Api\Controller;
 use Flarum\Api\Controller\AbstractDeleteController;
 use FoF\UserRequest\Command\DeleteRequest;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 
 class DeleteRequestController extends AbstractDeleteController
@@ -36,10 +37,8 @@ class DeleteRequestController extends AbstractDeleteController
      */
     protected function delete(ServerRequestInterface $request)
     {
-        $actor = $request->getAttribute('actor');
-
         $this->bus->dispatch(
-            new DeleteRequest($actor)
+            new DeleteRequest(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'))
         );
     }
 }

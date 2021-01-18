@@ -16,6 +16,13 @@ use Flarum\User\User;
 class DeleteRequest
 {
     /**
+     * The ID of the request.
+     *
+     * @var int
+     */
+    public $requestId;
+
+    /**
      * The user performing the action.
      *
      * @var User
@@ -25,10 +32,12 @@ class DeleteRequest
     /**
      * DeleteRequest constructor.
      *
+     * @param int $requestId
      * @param User $actor
      */
-    public function __construct(User $actor)
+    public function __construct(int $requestId, User $actor)
     {
+        $this->requestId = $requestId;
         $this->actor = $actor;
     }
 }
