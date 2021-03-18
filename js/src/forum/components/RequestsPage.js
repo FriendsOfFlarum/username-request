@@ -19,6 +19,8 @@ export default class RequestsPage extends Page {
 
         app.history.push('requests');
 
+        app.usernameRequests.load();
+
         this.bodyClass = 'App--requests';
     }
 
