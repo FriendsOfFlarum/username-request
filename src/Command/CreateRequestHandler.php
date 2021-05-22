@@ -14,6 +14,7 @@ namespace FoF\UserRequest\Command;
 use Flarum\User\UserValidator;
 use FoF\UserRequest\UsernameRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class CreateRequestHandler
 {
@@ -57,7 +58,11 @@ class CreateRequestHandler
             $username = null;
         }
 
-        $this->validator->assertValid([$attr => $username]);
+        // Allow for simply changing the case of a username, ie `user1` to `User1`
+        // The UserValidator will respond by saying `this username has already been taken`, so we bypass if the username is the same
+        if (Str::lower($actor->username) !== Str::lower($username)) {
+            $this->validator->assertValid([$attr => $username]);
+        }
 
         UsernameRequest::unguard();
 
