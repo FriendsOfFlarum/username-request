@@ -14,6 +14,7 @@ namespace FoF\UserRequest\Command;
 use Flarum\User\UserRepository;
 use Flarum\User\UserValidator;
 use FoF\UserRequest\UsernameRequest;
+use Illuminate\Support\Str;
 
 class ActOnRequestHandler
 {
@@ -64,7 +65,12 @@ class ActOnRequestHandler
 
         if ($usernameRequest->status === 'Approved') {
             $attr = $usernameRequest->for_nickname ? 'nickname' : 'username';
-            $this->validator->assertValid([$attr => $usernameRequest->requested_username]);
+
+            // Allow for simply changing the case of a username, ie `user1` to `User1`
+            // The UserValidator will respond by saying `this username has already been taken`, so we bypass if the username is the same
+            if (Str::lower($user->username) !== Str::lower($usernameRequest->requested_username)) {
+                $this->validator->assertValid([$attr => $usernameRequest->requested_username]);
+            }
 
             if ($attr === 'username') {
                 $usernameHistory = json_decode($user->username_history, true);
