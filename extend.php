@@ -48,7 +48,7 @@ return [
 
     (new Extend\ApiSerializer(Serializer\UserSerializer::class))
         ->attribute('usernameHistory', function (Serializer\UserSerializer $serializer, User $user) {
-            return json_decode($user->username_history);
+            return $user->username_history ? json_decode($user->username_history) : null;
         })
         ->hasOne('lastNicknameRequest', RequestSerializer::class)
         ->hasOne('lastUsernameRequest', RequestSerializer::class),
