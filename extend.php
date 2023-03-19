@@ -60,6 +60,9 @@ return [
         ->attribute('canRequestNickname', function (Serializer\ForumSerializer $serializer) {
             return $serializer->getActor()->hasPermission('user.requestNickname');
         })
+        ->attribute('passwordlessSignUp', function (Serializer\ForumSerializer $serializer) {
+            return !$serializer->getActor()->isGuest() && $serializer->getActor()->loginProviders()->count() > 0;
+        })
         ->hasMany('username_requests', RequestSerializer::class),
 
     (new Extend\ApiController(ShowForumController::class))
