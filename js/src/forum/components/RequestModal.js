@@ -68,16 +68,18 @@ export default class RequestModal extends Modal {
               disabled={this.deleteLoading || this.submitLoading}
             />
           </div>
-          <div className="Form-group">
-            <input
-              type="password"
-              name="password"
-              className="FormControl"
-              placeholder={app.translator.trans('core.forum.change_email.confirm_password_placeholder')}
-              bidi={this.password}
-              disabled={this.deleteLoading || this.submitLoading}
-            />
-          </div>
+          {app.forum.attribute('passwordlessSignUp') ? null : (
+            <div className="Form-group">
+              <input
+                type="password"
+                name="password"
+                className="FormControl"
+                placeholder={app.translator.trans('core.forum.change_email.confirm_password_placeholder')}
+                bidi={this.password}
+                disabled={this.deleteLoading || this.submitLoading}
+              />
+            </div>
+          )}
           <div className="Form-group">
             {Button.component(
               {
