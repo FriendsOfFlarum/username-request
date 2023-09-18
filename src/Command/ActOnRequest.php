@@ -39,7 +39,7 @@ class ActOnRequest
     /**
      * ActOnRequest constructor.
      *
-     * @param $requestId
+     * @param       $requestId
      * @param User  $actor
      * @param array $data
      */
