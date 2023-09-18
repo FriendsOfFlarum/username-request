@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of fof/username-request.
+ *
+ * Copyright (c) FriendsOfFlarum.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FoF\UserRequest\Notification;
 
 use Flarum\Notification\Blueprint\BlueprintInterface;
@@ -48,7 +57,7 @@ class RequestActionedBlueprint implements BlueprintInterface, MailableInterface
     public function getData()
     {
         return [
-            'status' => $this->usernameRequest->status
+            'status' => $this->usernameRequest->status,
         ];
     }
 
@@ -91,9 +100,9 @@ class RequestActionedBlueprint implements BlueprintInterface, MailableInterface
     {
         $status = $this->usernameRequest->status === 'Approved' ? 'approved' : 'rejected';
 
-        return $translator->trans('fof-username-request.email.subject.' . $status, [
+        return $translator->trans('fof-username-request.email.subject.'.$status, [
             '{display_name}'          => $this->actor->display_name,
-            '{requested_username}'    => $this->usernameRequest->requested_username
+            '{requested_username}'    => $this->usernameRequest->requested_username,
         ]);
     }
 }
