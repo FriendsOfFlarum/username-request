@@ -89,12 +89,16 @@ fof-username-request:
 
   email:
     body:
-      actioned: |
+      noReasonProvided: 'No reason provided.'
+      approved: |
         Hello {recipient_display_name},
 
-        Your request to change your username from "{old_username}" to "{new_username}" has been {status} by {actor_display_name}.
+        Your request to change your username from to "{new_username}" has been approved by {actor_display_name}.
+
+        You can now log in with your new username: {login_url}
+      rejected: |
+        Hello {recipient_display_name},
+        
+        Your request to change your username from "{old_username}" to "{new_username}" has been rejected by {actor_display_name}.
 
         Reason: {reason}
-
-        If approved, you can now log in with your new username: {login_url}
-      noReasonProvided: 'No reason provided.'

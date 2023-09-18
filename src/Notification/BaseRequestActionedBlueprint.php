@@ -11,13 +11,11 @@
 
 namespace FoF\UserRequest\Notification;
 
-use Flarum\Notification\Blueprint\BlueprintInterface;
-use Flarum\Notification\MailableInterface;
 use Flarum\User\User;
 use FoF\UserRequest\UsernameRequest;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class RequestActionedBlueprint implements BlueprintInterface, MailableInterface
+class BaseRequestActionedBlueprint
 {
     /**
      * @var UsernameRequest
@@ -62,16 +60,6 @@ class RequestActionedBlueprint implements BlueprintInterface, MailableInterface
     }
 
     /**
-     * Get the serialized type of this activity.
-     *
-     * @return string
-     */
-    public static function getType()
-    {
-        return 'usernameRequestActioned';
-    }
-
-    /**
      * Get the name of the model class for the subject of this activity.
      *
      * @return string
@@ -79,16 +67,6 @@ class RequestActionedBlueprint implements BlueprintInterface, MailableInterface
     public static function getSubjectModel()
     {
         return UsernameRequest::class;
-    }
-
-    /**
-     * Get the name of the view to construct a notification email with.
-     *
-     * @return string
-     */
-    public function getEmailView()
-    {
-        return ['text' => 'fof-username-request::emails.usernameRequestActioned'];
     }
 
     /**
