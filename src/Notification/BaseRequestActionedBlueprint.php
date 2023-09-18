@@ -11,6 +11,7 @@
 
 namespace FoF\UserRequest\Notification;
 
+use Carbon\Carbon;
 use Flarum\User\User;
 use FoF\UserRequest\UsernameRequest;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -31,6 +32,11 @@ class BaseRequestActionedBlueprint
     {
         $this->usernameRequest = $usernameRequest;
         $this->actor = $actor;
+    }
+
+    public function getRequestedUsername(): string
+    {
+        return $this->usernameRequest->requested_username;
     }
 
     /**
@@ -56,6 +62,7 @@ class BaseRequestActionedBlueprint
     {
         return [
             'status' => $this->usernameRequest->status,
+            'timestamp' => Carbon::now(),
         ];
     }
 
@@ -80,7 +87,7 @@ class BaseRequestActionedBlueprint
 
         return $translator->trans('fof-username-request.email.subject.'.$status, [
             '{display_name}'          => $this->actor->display_name,
-            '{requested_username}'    => $this->usernameRequest->requested_username,
+            '{requested_username}'    => $this->getRequestedUsername(),
         ]);
     }
 }
