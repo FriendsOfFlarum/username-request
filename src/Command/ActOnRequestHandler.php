@@ -11,8 +11,11 @@
 
 namespace FoF\UserRequest\Command;
 
+use Flarum\Notification\NotificationSyncer;
 use Flarum\User\UserRepository;
 use Flarum\User\UserValidator;
+use FoF\UserRequest\Notification\RequestApprovedBlueprint;
+use FoF\UserRequest\Notification\RequestRejectedBlueprint;
 use FoF\UserRequest\UsernameRequest;
 use Illuminate\Support\Str;
 
@@ -29,14 +32,20 @@ class ActOnRequestHandler
     protected $users;
 
     /**
+     * @var NotificationSyncer
+     */
+    protected $notificatons;
+
+    /**
      * CreateRequestHandler constructor.
      *
      * @param UserValidator $validator
      */
-    public function __construct(UserValidator $validator, UserRepository $users)
+    public function __construct(UserValidator $validator, UserRepository $users, NotificationSyncer $notifications)
     {
         $this->validator = $validator;
         $this->users = $users;
+        $this->notificatons = $notifications;
     }
 
     /**
@@ -88,6 +97,12 @@ class ActOnRequestHandler
         }
 
         $usernameRequest->save();
+
+        if ($usernameRequest->status === 'Approved') {
+            $this->notificatons->sync(new RequestApprovedBlueprint($usernameRequest, $actor), [$user]);
+        } else {
+            $this->notificatons->sync(new RequestRejectedBlueprint($usernameRequest, $actor), [$user]);
+        }
 
         return $usernameRequest;
     }

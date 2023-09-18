@@ -86,3 +86,22 @@ fof-username-request:
     nickname_change_requests: Nickname Change Requests
     username_change_request: Username Change Request
     username_change_requests: Username Change Requests
+
+  email:
+    body:
+      noReasonProvided: 'No reason provided.'
+      approved: |
+        Hello {recipient_display_name},
+
+        Your request to change your username to "{new_username}" has been approved by {actor_display_name}.
+
+        You can now log in with your new username: {login_url}
+      rejected: |
+        Hello {recipient_display_name},
+        
+        Your request to change your username from "{old_username}" to "{requested_username}" has been rejected by {actor_display_name}.
+
+        Reason: {reason}
+    subject:
+      approved: "{display_name} approved your username change to {requested_username}"
+      rejected: "{display_name} rejected your username change to {requested_username}"
