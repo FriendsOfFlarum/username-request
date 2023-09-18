@@ -61,7 +61,7 @@ class BaseRequestActionedBlueprint
     public function getData()
     {
         return [
-            'status' => $this->usernameRequest->status,
+            'status'    => $this->usernameRequest->status,
             'timestamp' => Carbon::now(),
         ];
     }
