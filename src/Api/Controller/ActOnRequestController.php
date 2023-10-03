@@ -41,7 +41,7 @@ class ActOnRequestController extends AbstractShowController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
-        $this->bus->dispatch(
+        return $this->bus->dispatch(
             new ActOnRequest(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
         );
     }
