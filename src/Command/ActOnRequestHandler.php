@@ -12,11 +12,13 @@
 namespace FoF\UserRequest\Command;
 
 use Flarum\Notification\NotificationSyncer;
+use Flarum\User\Event\Renamed;
 use Flarum\User\UserRepository;
 use Flarum\User\UserValidator;
 use FoF\UserRequest\Notification\RequestApprovedBlueprint;
 use FoF\UserRequest\Notification\RequestRejectedBlueprint;
 use FoF\UserRequest\UsernameRequest;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 
 class ActOnRequestHandler
@@ -37,15 +39,21 @@ class ActOnRequestHandler
     protected $notificatons;
 
     /**
+     * @var Dispatcher
+     */
+    protected $events;
+
+    /**
      * CreateRequestHandler constructor.
      *
      * @param UserValidator $validator
      */
-    public function __construct(UserValidator $validator, UserRepository $users, NotificationSyncer $notifications)
+    public function __construct(UserValidator $validator, UserRepository $users, NotificationSyncer $notifications, Dispatcher $events)
     {
         $this->validator = $validator;
         $this->users = $users;
         $this->notificatons = $notifications;
+        $this->events = $events;
     }
 
     /**
@@ -88,10 +96,16 @@ class ActOnRequestHandler
 
                 array_push($usernameHistory, [$user->username => time()]);
                 $user->username_history = json_encode($usernameHistory);
+
+                $oldUsername = $user->username;
             }
 
             $user->$attr = $usernameRequest->requested_username;
             $user->save();
+
+            if ($oldUsername) {
+                $this->events->dispatch(new Renamed($user, $oldUsername, $actor));
+            }
         } else {
             $usernameRequest->reason = $data['attributes']['reason'];
         }
