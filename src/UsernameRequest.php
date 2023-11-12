@@ -16,14 +16,14 @@ use Flarum\Database\ScopeVisibilityTrait;
 use Flarum\User\User;
 
 /**
- * @property int    $id
- * @property int    $user_id
+ * @property int         $id
+ * @property int         $user_id
  * @property string|null $requested_username
  * @property string|null $status
  * @property string|null $reason
- * @property bool   $for_nickname
- * @property \DateTime $created_at
- * @property User   $user
+ * @property bool        $for_nickname
+ * @property \DateTime   $created_at
+ * @property User        $user
  */
 class UsernameRequest extends AbstractModel
 {
