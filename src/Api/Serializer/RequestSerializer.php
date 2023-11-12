@@ -16,13 +16,10 @@ use Flarum\Api\Serializer\BasicUserSerializer;
 
 class RequestSerializer extends AbstractSerializer
 {
-    /**
-     * {@inheritdoc}
-     */
     protected $type = 'username-requests';
 
     /**
-     * {@inheritdoc}
+     * @param \FoF\UserRequest\UsernameRequest $username_request
      */
     protected function getDefaultAttributes($username_request)
     {
@@ -36,8 +33,6 @@ class RequestSerializer extends AbstractSerializer
     }
 
     /**
-     * @param $username_request
-     *
      * @return \Tobscure\JsonApi\Relationship
      */
     protected function user($username_request)

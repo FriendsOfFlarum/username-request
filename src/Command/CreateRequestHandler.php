@@ -11,6 +11,7 @@
 
 namespace FoF\UserRequest\Command;
 
+use Carbon\Carbon;
 use Flarum\User\UserValidator;
 use FoF\UserRequest\UsernameRequest;
 use Illuminate\Support\Arr;
@@ -76,7 +77,7 @@ class CreateRequestHandler
         $usernameRequest->for_nickname = $forNickname;
         $usernameRequest->status = 'Sent';
         $usernameRequest->reason = null;
-        $usernameRequest->created_at = time();
+        $usernameRequest->created_at = Carbon::now();
 
         $usernameRequest->save();
 
