@@ -36,6 +36,7 @@ return [
         ->delete('/username-requests/{id}', 'username.request.delete', Controller\DeleteRequestController::class),
 
     (new Extend\Model(User::class))
+        ->cast('username_history', 'string')
         ->hasMany('nameChangeRequests', UsernameRequest::class, 'user_id')
         ->relationship('lastNicknameRequest', function ($user) {
             return $user->hasOne(UsernameRequest::class, 'user_id', null)->where('for_nickname', true);

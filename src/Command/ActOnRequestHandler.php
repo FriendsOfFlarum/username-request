@@ -80,6 +80,8 @@ class ActOnRequestHandler
 
         $usernameRequest->status = $data['attributes']['action'];
 
+        $oldUsername = null;
+
         if ($usernameRequest->status === 'Approved') {
             $attr = $usernameRequest->for_nickname ? 'nickname' : 'username';
 
@@ -100,6 +102,7 @@ class ActOnRequestHandler
                 $oldUsername = $user->username;
             }
 
+            /** @phpstan-ignore-next-line */
             $user->$attr = $usernameRequest->requested_username;
             $user->save();
 
