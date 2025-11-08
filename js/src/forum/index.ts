@@ -2,12 +2,12 @@ import app from 'flarum/forum/app';
 import User from 'flarum/common/models/User';
 import Model from 'flarum/common/Model';
 import UsernameRequest from './models/UsernameRequest';
-import addRequestSetting from './addRequestSetting';
+import addRequestSetting from './extenders/addRequestSetting';
 import RequestsPage from './components/RequestsPage';
-import addRequestDropdown from './addRequestDropdown';
-import checkForApproval from './checkForApproval';
+import addRequestDropdown from './extenders/addRequestDropdown';
+import checkForApproval from './extenders/checkForApproval';
 import ProfilePage from './components/ProfilePage';
-import addProfilePage from './addProfilePage';
+import addProfilePage from './extenders/addProfilePage';
 import RequestsListState from './states/RequestsListState';
 
 app.initializers.add('fof-username-request', () => {
