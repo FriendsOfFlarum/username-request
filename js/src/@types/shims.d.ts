@@ -1,5 +1,6 @@
 import 'flarum/forum/ForumApplication';
 import 'flarum/common/models/User';
+
 import RequestsListState from '../forum/states/RequestsListState';
 import type UsernameRequest from '../forum/models/UsernameRequest';
 
