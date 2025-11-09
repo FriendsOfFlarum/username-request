@@ -1,5 +1,5 @@
 import app from 'flarum/forum/app';
-import ResultsModal from './components/ResultsModal';
+import ResultsModal from '../components/ResultsModal';
 
 export default function () {
   return new Promise(() => {
