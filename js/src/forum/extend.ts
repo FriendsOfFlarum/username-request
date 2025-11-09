@@ -16,5 +16,5 @@ export default [
   new Extend.Model(User) //
     .hasOne<UsernameRequest>('lastNicknameRequest')
     .hasOne<UsernameRequest>('lastUsernameRequest')
-    .attribute<unknown>('usernameHistory'),
+    .attribute<UsernameRequest[] | null>('usernameHistory'),
 ];

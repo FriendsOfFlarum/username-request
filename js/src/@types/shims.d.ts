@@ -13,6 +13,6 @@ declare module 'flarum/common/models/User' {
   export default interface User {
     lastNicknameRequest(): UsernameRequest | null;
     lastUsernameRequest(): UsernameRequest | null;
-    usernameHistory(): unknown;
+    usernameHistory(): UsernameRequest[] | null;
   }
 }
