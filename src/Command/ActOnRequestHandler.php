@@ -24,36 +24,17 @@ use Illuminate\Support\Str;
 class ActOnRequestHandler
 {
     /**
-     * @var UserValidator
-     */
-    protected $validator;
-
-    /**
-     * @var UserRepository
-     */
-    protected $users;
-
-    /**
      * @var NotificationSyncer
      */
     protected $notificatons;
 
     /**
-     * @var Dispatcher
-     */
-    protected $events;
-
-    /**
      * CreateRequestHandler constructor.
      *
-     * @param UserValidator $validator
-     */
-    public function __construct(UserValidator $validator, UserRepository $users, NotificationSyncer $notifications, Dispatcher $events)
+    
+    public function __construct(protected UserValidator $validator, protected UserRepository $users, NotificationSyncer $notifications, protected Dispatcher $events)
     {
-        $this->validator = $validator;
-        $this->users = $users;
         $this->notificatons = $notifications;
-        $this->events = $events;
     }
 
     /**

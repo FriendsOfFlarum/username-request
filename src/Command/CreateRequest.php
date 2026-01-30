@@ -16,28 +16,10 @@ use Flarum\User\User;
 class CreateRequest
 {
     /**
-     * The user performing the action.
-     *
-     * @var User
-     */
-    public $actor;
-
-    /**
-     * The attributes of the new flag.
-     *
-     * @var array
-     */
-    public $data;
-
-    /**
      * CreateRequest constructor.
      *
-     * @param User  $actor
-     * @param array $data
      */
-    public function __construct(User $actor, array $data)
+    public function __construct(public User $actor, public array $data)
     {
-        $this->actor = $actor;
-        $this->data = $data;
     }
 }

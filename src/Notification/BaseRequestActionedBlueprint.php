@@ -18,20 +18,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BaseRequestActionedBlueprint
 {
-    /**
-     * @var UsernameRequest
-     */
-    public $usernameRequest;
-
-    /**
-     * @var User
-     */
-    public $actor;
-
-    public function __construct(UsernameRequest $usernameRequest, User $actor)
+    public function __construct(public UsernameRequest $usernameRequest, public User $actor)
     {
-        $this->usernameRequest = $usernameRequest;
-        $this->actor = $actor;
     }
 
     public function getRequestedUsername(): string

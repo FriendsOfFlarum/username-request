@@ -11,17 +11,18 @@
 
 namespace FoF\UserRequest\Notification;
 
+use Flarum\Notification\AlertableInterface;
 use Flarum\Notification\Blueprint\BlueprintInterface;
 use Flarum\Notification\MailableInterface;
 
-class RequestRejectedBlueprint extends BaseRequestActionedBlueprint implements BlueprintInterface, MailableInterface
+class RequestRejectedBlueprint extends BaseRequestActionedBlueprint implements BlueprintInterface, MailableInterface, AlertableInterface
 {
     /**
      * Get the serialized type of this activity.
      *
      * @return string
      */
-    public static function getType()
+    public static function getType(): string
     {
         return 'usernameRequestRejected';
     }
@@ -31,7 +32,7 @@ class RequestRejectedBlueprint extends BaseRequestActionedBlueprint implements B
      *
      * @return array<string, string>
      */
-    public function getEmailView()
+    public function getEmailViews(): array
     {
         return ['text' => 'fof-username-request::emails.usernameRequestRejected'];
     }

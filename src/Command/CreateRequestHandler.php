@@ -20,18 +20,11 @@ use Illuminate\Support\Str;
 class CreateRequestHandler
 {
     /**
-     * @var UserValidator
-     */
-    protected $validator;
-
-    /**
      * CreateRequestHandler constructor.
      *
-     * @param UserValidator $validator
-     */
-    public function __construct(UserValidator $validator)
+    
+    public function __construct(protected UserValidator $validator)
     {
-        $this->validator = $validator;
     }
 
     /**

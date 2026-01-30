@@ -19,23 +19,14 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class DeleteRequestController extends AbstractDeleteController
 {
-    /**
-     * @var Dispatcher
-     */
-    protected $bus;
-
-    /**
-     * @param Dispatcher $bus
-     */
-    public function __construct(Dispatcher $bus)
+    public function __construct(protected Dispatcher $bus)
     {
-        $this->bus = $bus;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function delete(ServerRequestInterface $request)
+    protected function delete(ServerRequestInterface $request): void
     {
         $this->bus->dispatch(
             new DeleteRequest(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'))

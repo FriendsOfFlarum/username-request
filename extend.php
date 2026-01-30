@@ -77,8 +77,8 @@ return [
         ->addInclude(['lastNicknameRequest', 'lastUsernameRequest']),
 
     (new Extend\Notification())
-        ->type(Notification\RequestApprovedBlueprint::class, Api\Serializer\RequestSerializer::class, ['email'])
-        ->type(Notification\RequestRejectedBlueprint::class, Api\Serializer\RequestSerializer::class, ['email']),
+        ->type(Notification\RequestApprovedBlueprint::class, ['email'])
+        ->type(Notification\RequestRejectedBlueprint::class, ['email']),
 
     (new Extend\View())
         ->namespace('fof-username-request', __DIR__.'/resources/views'),

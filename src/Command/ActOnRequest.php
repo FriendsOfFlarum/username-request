@@ -16,37 +16,10 @@ use Flarum\User\User;
 class ActOnRequest
 {
     /**
-     * The ID of the request.
-     *
-     * @var int
-     */
-    public $requestId;
-
-    /**
-     * The user performing the action.
-     *
-     * @var User
-     */
-    public $actor;
-
-    /**
-     * The attributes of the new flag.
-     *
-     * @var array
-     */
-    public $data;
-
-    /**
      * ActOnRequest constructor.
      *
-     * @param       $requestId
-     * @param User  $actor
-     * @param array $data
-     */
-    public function __construct($requestId, User $actor, array $data)
+    
+    public function __construct(public $requestId, public User $actor, public array $data)
     {
-        $this->requestId = $requestId;
-        $this->actor = $actor;
-        $this->data = $data;
     }
 }
