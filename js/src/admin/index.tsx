@@ -1,7 +1,7 @@
 import app from 'flarum/admin/app';
 
 app.initializers.add('fof-username-request', () => {
-  app.extensionData
+  app.registry
     .for('fof-username-request')
     .registerPermission(
       {

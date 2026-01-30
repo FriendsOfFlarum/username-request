@@ -1,9 +1,9 @@
 import app from 'flarum/forum/app';
-import NotificationsDropdown from 'flarum/forum/components/NotificationsDropdown';
+import HeaderDropdown from 'flarum/forum/components/HeaderDropdown';
 
 import RequestsList from './RequestsList';
 
-export default class RequestsDropdown extends NotificationsDropdown {
+export default class RequestsDropdown extends HeaderDropdown {
   static initAttrs(attrs) {
     attrs.label = attrs.label || app.translator.trans('fof-username-request.forum.pending_requests.tooltip');
     attrs.icon = attrs.icon || 'fas fa-user-edit';
@@ -11,12 +11,8 @@ export default class RequestsDropdown extends NotificationsDropdown {
     super.initAttrs(attrs);
   }
 
-  getMenu() {
-    return (
-      <div className={'Dropdown-menu ' + this.attrs.menuClassName} onclick={this.menuClick.bind(this)}>
-        {this.showing ? RequestsList.component({ state: app.usernameRequests }) : ''}
-      </div>
-    );
+  getContent() {
+    return RequestsList.component({ state: app.usernameRequests });
   }
 
   goToRoute() {

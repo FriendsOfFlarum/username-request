@@ -1,9 +1,9 @@
 import app from 'flarum/forum/app';
 import Component from 'flarum/common/Component';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
-import avatar from 'flarum/common/helpers/avatar';
+import Avatar from 'flarum/common/components/Avatar';
 import username from 'flarum/common/helpers/username';
-import icon from 'flarum/common/helpers/icon';
+import Icon from 'flarum/common/components/Icon';
 import humanTime from 'flarum/common/helpers/humanTime';
 import ActionModal from './ActionModal';
 
@@ -18,20 +18,20 @@ export default class FlagList extends Component {
     const requests = app.cache.username_requests || [];
 
     return (
-      <div className="NotificationList RequestsList">
+      <div className="HeaderList RequestsList">
         <div className="NotificationList-header">
           <h4 className="App-titleControl App-titleControl--text">{app.translator.trans('fof-username-request.forum.pending_requests.title')}</h4>
         </div>
         <div className="NotificationList-content">
-          <ul className="NotificationGroup-content">
+          <ul className="HeaderListGroup-content">
             {requests.length ? (
               requests.map((request) => {
                 const prefix = request.forNickname() ? 'nickname' : 'username';
                 return (
                   <li>
                     <a onclick={this.showModal.bind(this, request)} className="Notification Request">
-                      {avatar(request.user())}
-                      {icon('fas fa-user-edit', { className: 'Notification-icon' })}
+                      <Avatar user={request.user()} />
+                      <Icon name="fas fa-user-edit" className="Notification-icon" />
                       <span className="Notification-content">
                         {app.translator.trans(`fof-username-request.forum.pending_requests.${prefix}_item_text`, {
                           name: username(request.user()),

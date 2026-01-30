@@ -1,11 +1,12 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
 import Button from 'flarum/common/components/Button';
-import Modal from 'flarum/common/components/Modal';
+import FormModal from 'flarum/common/components/FormModal';
 import username from 'flarum/common/helpers/username';
 import Stream from 'flarum/common/utils/Stream';
 import withAttr from 'flarum/common/utils/withAttr';
 
-export default class ActionModal extends Modal {
+export default class ActionModal extends FormModal {
   oninit(vnode) {
     super.oninit(vnode);
 
@@ -29,7 +30,7 @@ export default class ActionModal extends Modal {
   content() {
     return (
       <div className="Modal-body">
-        <div className="Form">
+        <Form>
           <h3 className="Notification-content">
             {app.translator.trans(`${this.translationPrefix}.name`, {
               name: username(this.request.user()),
@@ -81,7 +82,7 @@ export default class ActionModal extends Modal {
               app.translator.trans(`${this.translationPrefix}.submit_button`)
             )}
           </div>
-        </div>
+        </Form>
       </div>
     );
   }
