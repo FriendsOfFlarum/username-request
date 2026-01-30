@@ -1,14 +1,13 @@
 import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
 import Button from 'flarum/common/components/Button';
-import SettingsPage from 'flarum/forum/components/SettingsPage';
 import RequestModal from '../components/RequestModal';
 
 import type Mithril from 'mithril';
 import type ItemList from 'flarum/common/utils/ItemList';
 
 export default function addRequestSetting() {
-  extend(SettingsPage.prototype, 'accountItems', function (items: ItemList<Mithril.Children>) {
+  extend('flarum/forum/components/SettingsPage', 'accountItems', function (items: ItemList<Mithril.Children>) {
     const canRequestUsername = app.forum.attribute<boolean>('canRequestUsername');
 
     if (!canRequestUsername) return;
@@ -21,7 +20,7 @@ export default function addRequestSetting() {
     );
   });
 
-  extend(SettingsPage.prototype, 'accountItems', function (items: ItemList<Mithril.Children>) {
+  extend('flarum/forum/components/SettingsPage', 'accountItems', function (items: ItemList<Mithril.Children>) {
     if (!app.initializers.has('flarum/nicknames')) return;
 
     if (app.forum.attribute<string>('displayNameDriver') !== 'nickname') return;
