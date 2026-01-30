@@ -1,1 +1,1 @@
-export default function _default(): Promise<any>;
+export default function checkForApproval(): Promise<unknown>;

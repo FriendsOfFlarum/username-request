@@ -1,12 +1,19 @@
 /// <reference types="flarum/@types/translator-icu-rich" />
-export default class ResultsModal extends Modal<import("flarum/common/components/Modal").IInternalModalAttrs, undefined> {
-    constructor();
-    oninit(vnode: any): void;
-    userRequestAttr: string | undefined;
-    request: any;
-    translationPrefix: string | undefined;
+import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
+import type UsernameRequest from '../models/UsernameRequest';
+import type User from 'flarum/common/models/User';
+import type Mithril from 'mithril';
+export interface ResultsModalAttrs extends IInternalModalAttrs {
+    nickname: boolean | undefined;
+}
+export default class ResultsModal<CustomAttrs extends ResultsModalAttrs = ResultsModalAttrs> extends Modal<CustomAttrs> {
+    userRequestAttr: string;
+    user: User;
+    request: UsernameRequest;
+    translationPrefix: string;
+    oninit(vnode: Mithril.Vnode): void;
+    className(): string;
     title(): import("@askvortsov/rich-icu-message-formatter").NestedStringArray;
     content(): JSX.Element;
     onremove(): void;
 }
-import Modal from "flarum/common/components/Modal";
