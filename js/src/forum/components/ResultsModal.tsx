@@ -1,15 +1,33 @@
 import app from 'flarum/forum/app';
-import Modal from 'flarum/common/components/Modal';
+import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
 import Button from 'flarum/common/components/Button';
 import Stream from 'flarum/common/utils/Stream';
+import type UsernameRequest from '../models/UsernameRequest';
 
-export default class ResultsModal extends Modal {
-  oninit(vnode) {
+import type User from 'flarum/common/models/User';
+import type Mithril from 'mithril';
+
+export interface ResultsModalAttrs extends IInternalModalAttrs {
+  nickname: boolean | undefined;
+}
+
+export default class ResultsModal<CustomAttrs extends ResultsModalAttrs = ResultsModalAttrs> extends Modal<CustomAttrs> {
+  userRequestAttr!: string;
+  user!: User;
+  request!: UsernameRequest;
+  translationPrefix!: string;
+
+  oninit(vnode: Mithril.Vnode) {
     super.oninit(vnode);
 
     this.userRequestAttr = `last${this.attrs.nickname ? 'Nickname' : 'Username'}Request`;
 
-    this.request = app.session.user[this.userRequestAttr]();
+    const user = app.session.user;
+
+    if (user) {
+      this.user = user;
+      this.request = (this.user as User as any)[this.userRequestAttr]();
+    }
 
     this.translationPrefix = `fof-username-request.forum.${this.request.forNickname() ? 'nickname' : 'username'}_modals.results`;
   }
@@ -29,7 +47,7 @@ export default class ResultsModal extends Modal {
           {this.request.status() === 'Approved'
             ? [
                 <h2>{app.translator.trans(`${this.translationPrefix}.approved`)}</h2>,
-                <h3>{app.translator.trans(`${this.translationPrefix}.new_name`, { name: app.session.user.displayName() })}</h3>,
+                <h3>{app.translator.trans(`${this.translationPrefix}.new_name`, { name: this.user.displayName() })}</h3>,
               ]
             : [
                 <h2>{app.translator.trans(`${this.translationPrefix}.rejected`)}</h2>,
@@ -47,7 +65,7 @@ export default class ResultsModal extends Modal {
   }
 
   onremove() {
-    app.session.user[this.userRequestAttr] = Stream();
+    (this.user as User as any)[this.userRequestAttr] = Stream();
     this.request.save({ delete: true });
   }
 }
