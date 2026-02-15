@@ -1,7 +1,5 @@
-export default class FlagList extends Component<any, undefined> {
+export default class RequestsList extends Component<any, undefined> {
     constructor();
-    oninit(vnode: any): void;
-    loading: boolean | undefined;
     view(): JSX.Element;
     showModal(request: any): void;
 }

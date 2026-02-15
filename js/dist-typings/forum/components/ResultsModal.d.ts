@@ -1,4 +1,3 @@
-/// <reference types="flarum/@types/translator-icu-rich" />
 import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
 import type UsernameRequest from '../models/UsernameRequest';
 import type User from 'flarum/common/models/User';
@@ -13,7 +12,7 @@ export default class ResultsModal<CustomAttrs extends ResultsModalAttrs = Result
     translationPrefix: string;
     oninit(vnode: Mithril.Vnode): void;
     className(): string;
-    title(): import("@askvortsov/rich-icu-message-formatter").NestedStringArray;
+    title(): string | any[];
     content(): JSX.Element;
     onremove(): void;
 }

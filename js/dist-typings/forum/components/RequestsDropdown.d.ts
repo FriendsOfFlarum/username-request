@@ -1,7 +1,7 @@
-export default class RequestsDropdown extends NotificationsDropdown<import("flarum/common/components/Dropdown").IDropdownAttrs> {
+export default class RequestsDropdown extends HeaderDropdown<import("flarum/forum/components/HeaderDropdown").IHeaderDropdownAttrs> {
     static initAttrs(attrs: any): void;
     constructor();
     getUnreadCount(): any;
     getNewCount(): any;
 }
-import NotificationsDropdown from "flarum/forum/components/NotificationsDropdown";
+import HeaderDropdown from "flarum/forum/components/HeaderDropdown";

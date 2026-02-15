@@ -1,5 +1,4 @@
-/// <reference types="flarum/@types/translator-icu-rich" />
-export default class RequestModal extends Modal<import("flarum/common/components/Modal").IInternalModalAttrs, undefined> {
+export default class RequestModal extends FormModal<import("flarum/common/components/FormModal").IFormModalAttrs, undefined> {
     constructor();
     oninit(vnode: any): void;
     username: any;
@@ -8,7 +7,7 @@ export default class RequestModal extends Modal<import("flarum/common/components
     success: boolean | undefined;
     password: any;
     translationPrefix: string | undefined;
-    title(): import("@askvortsov/rich-icu-message-formatter").NestedStringArray;
+    title(): string | any[];
     content(): JSX.Element;
     deleteRequest(e: any): void;
     deleteLoading: boolean | undefined;
@@ -18,4 +17,4 @@ export default class RequestModal extends Modal<import("flarum/common/components
     submitLoading: boolean | undefined;
     onerror(error: any): void;
 }
-import Modal from "flarum/common/components/Modal";
+import FormModal from "flarum/common/components/FormModal";
