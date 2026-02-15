@@ -14,6 +14,7 @@ namespace FoF\UserRequest\Tests\integration\forum;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
 use FoF\UserRequest\Tests\integration\ExtensionDepsTrait;
+use PHPUnit\Framework\Attributes\Test;
 
 class ForumTest extends TestCase
 {
@@ -27,10 +28,8 @@ class ForumTest extends TestCase
         $this->extensionDeps();
     }
 
-    /**
-     * @test
-     */
-    public function extension_boots_and_serializes()
+    #[Test]
+    public function extension_loads_successfully(): void
     {
         $response = $this->send($this->request('GET', '/'));
 
@@ -38,7 +37,7 @@ class ForumTest extends TestCase
 
         $body = (string) $response->getBody();
 
-        $this->assertStringStartsWith('<!doctype html>', $body);
+        $this->assertStringStartsWith('<!doctype html>', strtolower($body));
         $this->assertStringContainsString('</html>', $body);
     }
 }

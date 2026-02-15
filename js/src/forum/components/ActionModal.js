@@ -95,20 +95,20 @@ export default class ActionModal extends FormModal {
     this.request
       .save({
         reason: this.reason(),
-        action: this.approved(),
+        status: this.approved(),
       })
       .then(() => {
         this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans(`${this.translationPrefix}.success`));
-      });
-
-    app.cache.username_requests.some((request, i) => {
-      if (request.id() == this.request.id()) {
-        app.cache.username_requests.splice(i, 1);
-      }
-    });
-
-    m.redraw();
-
-    this.hide();
+        // Remove from cache so it disappears from the dropdown
+        if (app.cache.username_requests) {
+          const idx = app.cache.username_requests.findIndex((r) => r.id() === this.request.id());
+          if (idx !== -1) {
+            app.cache.username_requests.splice(idx, 1);
+          }
+        }
+        m.redraw();
+      })
+      .catch(() => {})
+      .then(() => this.hide());
   }
 }

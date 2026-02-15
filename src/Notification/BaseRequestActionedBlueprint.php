@@ -30,7 +30,7 @@ class BaseRequestActionedBlueprint
     /**
      * Get the user that sent the notification.
      */
-    public function getFromUser()
+    public function getFromUser(): User
     {
         return $this->actor;
     }
@@ -38,15 +38,17 @@ class BaseRequestActionedBlueprint
     /**
      * Get the model that is the subject of this activity.
      */
-    public function getSubject()
+    public function getSubject(): UsernameRequest
     {
         return $this->usernameRequest;
     }
 
     /**
      * Get the data to be stored in the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function getData()
+    public function getData(): array
     {
         return [
             'status'    => $this->usernameRequest->status,
@@ -56,20 +58,16 @@ class BaseRequestActionedBlueprint
 
     /**
      * Get the name of the model class for the subject of this activity.
-     *
-     * @return string
      */
-    public static function getSubjectModel()
+    public static function getSubjectModel(): string
     {
         return UsernameRequest::class;
     }
 
     /**
      * Get the subject line for the notification email.
-     *
-     * @return string
      */
-    public function getEmailSubject(TranslatorInterface $translator)
+    public function getEmailSubject(TranslatorInterface $translator): string
     {
         $status = $this->usernameRequest->status === 'Approved' ? 'approved' : 'rejected';
 

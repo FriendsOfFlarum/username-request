@@ -15,7 +15,7 @@ use Illuminate\Database\Schema\Builder;
 return [
     'up' => function (Builder $schema) {
         $schema->table('users', function (Blueprint $table) {
-            $table->binary('username_history')->change();
+            $table->binary('username_history')->nullable()->change();
         });
     },
 ];

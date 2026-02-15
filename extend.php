@@ -11,14 +11,11 @@
 
 namespace FoF\UserRequest;
 
-use Flarum\Api\Controller\ListUsersController;
-use Flarum\Api\Controller\ShowForumController;
-use Flarum\Api\Controller\ShowUserController;
-use Flarum\Api\Serializer;
+use Flarum\Api\Resource\ForumResource;
+use Flarum\Api\Resource\UserResource;
 use Flarum\Extend;
 use Flarum\User\User;
-use FoF\UserRequest\Api\Controller;
-use FoF\UserRequest\Api\Serializer\RequestSerializer;
+use FoF\UserRequest\Api\Resource\UsernameRequestResource;
 
 return [
     (new Extend\Frontend('forum'))
@@ -29,11 +26,7 @@ return [
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js'),
 
-    (new Extend\Routes('api'))
-        ->get('/username-requests', 'username.request.index', Controller\ListRequestsController::class)
-        ->post('/username-requests', 'username.request.create', Controller\CreateRequestController::class)
-        ->patch('/username-requests/{id}', 'username.request.act', Controller\ActOnRequestController::class)
-        ->delete('/username-requests/{id}', 'username.request.delete', Controller\DeleteRequestController::class),
+    (new Extend\ApiResource(UsernameRequestResource::class)),
 
     (new Extend\Model(User::class))
         ->cast('username_history', 'string')
@@ -47,34 +40,23 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
-    (new Extend\ApiSerializer(Serializer\UserSerializer::class))
-        ->attribute('usernameHistory', function (Serializer\UserSerializer $serializer, User $user) {
-            return $user->username_history ? json_decode($user->username_history) : null;
-        })
-        ->hasOne('lastNicknameRequest', RequestSerializer::class)
-        ->hasOne('lastUsernameRequest', RequestSerializer::class),
+    (new Extend\ApiResource(UserResource::class))
+        ->fields(fn () => [
+            \Flarum\Api\Schema\Arr::make('usernameHistory')
+                ->get(fn (User $user) => $user->username_history ? json_decode($user->username_history) : null),
+        ]),
 
-    (new Extend\ApiSerializer(Serializer\ForumSerializer::class))
-        ->attribute('canRequestUsername', function (Serializer\ForumSerializer $serializer) {
-            return $serializer->getActor()->hasPermission('user.requestUsername');
-        })
-        ->attribute('canRequestNickname', function (Serializer\ForumSerializer $serializer) {
-            return $serializer->getActor()->hasPermission('user.requestNickname');
-        })
-        ->attribute('passwordlessSignUp', function (Serializer\ForumSerializer $serializer) {
-            return !$serializer->getActor()->isGuest() && $serializer->getActor()->loginProviders()->count() > 0;
-        })
-        ->hasMany('username_requests', RequestSerializer::class),
-
-    (new Extend\ApiController(ShowForumController::class))
-        ->addInclude(['username_requests', 'username_requests.user'])
-        ->prepareDataForSerialization(AddUsernameRequests::class),
-
-    (new Extend\ApiController(ListUsersController::class))
-        ->addInclude(['lastNicknameRequest', 'lastUsernameRequest']),
-
-    (new Extend\ApiController(ShowUserController::class))
-        ->addInclude(['lastNicknameRequest', 'lastUsernameRequest']),
+    (new Extend\ApiResource(ForumResource::class))
+        ->fields(fn () => [
+            \Flarum\Api\Schema\Boolean::make('canRequestUsername')
+                ->get(fn ($model, \Flarum\Api\Context $context) => $context->getActor()->hasPermission('user.requestUsername')),
+            \Flarum\Api\Schema\Boolean::make('canRequestNickname')
+                ->get(fn ($model, \Flarum\Api\Context $context) => $context->getActor()->hasPermission('user.requestNickname')),
+            \Flarum\Api\Schema\Boolean::make('canViewUsernameRequests')
+                ->get(fn ($model, \Flarum\Api\Context $context) => $context->getActor()->hasPermission('user.viewUsernameRequests')),
+            \Flarum\Api\Schema\Boolean::make('passwordlessSignUp')
+                ->get(fn ($model, \Flarum\Api\Context $context) => !$context->getActor()->isGuest() && $context->getActor()->loginProviders()->count() > 0),
+        ]),
 
     (new Extend\Notification())
         ->type(Notification\RequestApprovedBlueprint::class, ['email'])

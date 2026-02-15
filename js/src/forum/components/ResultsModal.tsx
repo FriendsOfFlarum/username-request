@@ -76,6 +76,6 @@ export default class ResultsModal<CustomAttrs extends ResultsModalAttrs = Result
 
   onremove() {
     (this.user as User as any)[this.userRequestAttr] = Stream();
-    this.request.save({ delete: true });
+    this.request.delete();
   }
 }

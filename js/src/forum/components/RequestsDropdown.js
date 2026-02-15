@@ -20,16 +20,10 @@ export default class RequestsDropdown extends HeaderDropdown {
   }
 
   getUnreadCount() {
-    if (app.cache.username_requests) {
-      return app.cache.username_requests.length;
-    }
-    return app.forum.data.relationships.username_requests.data.length;
+    return app.cache.username_requests ? app.cache.username_requests.length : 0;
   }
 
   getNewCount() {
-    if (app.cache.username_requests) {
-      return app.cache.username_requests.length;
-    }
-    return app.forum.data.relationships.username_requests.data.length;
+    return app.cache.username_requests ? app.cache.username_requests.length : 0;
   }
 }

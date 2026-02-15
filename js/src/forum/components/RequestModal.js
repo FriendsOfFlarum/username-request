@@ -141,7 +141,7 @@ export default class RequestModal extends FormModal {
       .createRecord('username-requests')
       .save(
         {
-          username: this.username(),
+          requestedUsername: this.username(),
           forNickname: this.attrs.nickname,
         },
         {

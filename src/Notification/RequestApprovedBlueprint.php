@@ -11,11 +11,10 @@
 
 namespace FoF\UserRequest\Notification;
 
-use Flarum\Notification\AlertableInterface;
 use Flarum\Notification\Blueprint\BlueprintInterface;
 use Flarum\Notification\MailableInterface;
 
-class RequestApprovedBlueprint extends BaseRequestActionedBlueprint implements BlueprintInterface, MailableInterface, AlertableInterface
+class RequestApprovedBlueprint extends BaseRequestActionedBlueprint implements BlueprintInterface, MailableInterface
 {
     /**
      * Get the serialized type of this activity.
@@ -34,6 +33,9 @@ class RequestApprovedBlueprint extends BaseRequestActionedBlueprint implements B
      */
     public function getEmailViews(): array
     {
-        return ['text' => 'fof-username-request::emails.usernameRequestApproved'];
+        return [
+            'text' => 'fof-username-request::emails.plain.approved',
+            'html' => 'fof-username-request::emails.html.approved',
+        ];
     }
 }
