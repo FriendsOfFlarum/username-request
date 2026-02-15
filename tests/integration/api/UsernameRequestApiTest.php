@@ -45,10 +45,10 @@ class UsernameRequestApiTest extends TestCase
             User::class => [
                 $this->normalUser(),
                 [
-                    'id' => 3,
-                    'username' => 'moderator',
-                    'email' => 'moderator@machine.local',
-                    'password' => '$2y$10$LO59tiT7uggl6Oe23o/O6.utnF6ipngYjvMvaxo1TciKqBttDNKim',
+                    'id'                 => 3,
+                    'username'           => 'moderator',
+                    'email'              => 'moderator@machine.local',
+                    'password'           => '$2y$10$LO59tiT7uggl6Oe23o/O6.utnF6ipngYjvMvaxo1TciKqBttDNKim',
                     'is_email_confirmed' => 1,
                 ],
             ],
@@ -73,12 +73,12 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/username-requests', [
                 'authenticatedAs' => 2,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
+                        'type'       => 'username-requests',
                         'attributes' => [
                             'requestedUsername' => 'newname',
-                            'forNickname' => false,
+                            'forNickname'       => false,
                         ],
                     ],
                     'meta' => [
@@ -104,12 +104,12 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/username-requests', [
                 'authenticatedAs' => 2,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
+                        'type'       => 'username-requests',
                         'attributes' => [
                             'requestedUsername' => 'CoolNickname',
-                            'forNickname' => true,
+                            'forNickname'       => true,
                         ],
                     ],
                     'meta' => [
@@ -132,12 +132,12 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/username-requests', [
                 'authenticatedAs' => 2,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
+                        'type'       => 'username-requests',
                         'attributes' => [
                             'requestedUsername' => 'newname',
-                            'forNickname' => false,
+                            'forNickname'       => false,
                         ],
                     ],
                 ],
@@ -153,12 +153,12 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/username-requests', [
                 'authenticatedAs' => 2,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
+                        'type'       => 'username-requests',
                         'attributes' => [
                             'requestedUsername' => 'a',
-                            'forNickname' => false,
+                            'forNickname'       => false,
                         ],
                     ],
                     'meta' => [
@@ -178,10 +178,10 @@ class UsernameRequestApiTest extends TestCase
             $this->request('POST', '/api/username-requests', [
                 'json' => [
                     'data' => [
-                        'type' => 'username-requests',
+                        'type'       => 'username-requests',
                         'attributes' => [
                             'requestedUsername' => 'newname',
-                            'forNickname' => false,
+                            'forNickname'       => false,
                         ],
                     ],
                 ],
@@ -213,12 +213,12 @@ class UsernameRequestApiTest extends TestCase
         $this->prepareDatabase([
             'username_requests' => [
                 [
-                    'user_id' => 2,
+                    'user_id'            => 2,
                     'requested_username' => 'pendinguser',
-                    'status' => 'Sent',
-                    'for_nickname' => false,
-                    'reason' => null,
-                    'created_at' => date('Y-m-d H:i:s'),
+                    'status'             => 'Sent',
+                    'for_nickname'       => false,
+                    'reason'             => null,
+                    'created_at'         => date('Y-m-d H:i:s'),
                 ],
             ],
         ]);
@@ -243,12 +243,12 @@ class UsernameRequestApiTest extends TestCase
         $this->prepareDatabase([
             'username_requests' => [
                 [
-                    'user_id' => 2,
+                    'user_id'            => 2,
                     'requested_username' => 'myrequest',
-                    'status' => 'Sent',
-                    'for_nickname' => false,
-                    'reason' => null,
-                    'created_at' => date('Y-m-d H:i:s'),
+                    'status'             => 'Sent',
+                    'for_nickname'       => false,
+                    'reason'             => null,
+                    'created_at'         => date('Y-m-d H:i:s'),
                 ],
             ],
         ]);
@@ -278,10 +278,10 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('PATCH', '/api/username-requests/'.$request->id, [
                 'authenticatedAs' => 3,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
-                        'id' => (string) $request->id,
+                        'type'       => 'username-requests',
+                        'id'         => (string) $request->id,
                         'attributes' => [
                             'status' => 'Approved',
                         ],
@@ -312,10 +312,10 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('PATCH', '/api/username-requests/'.$request->id, [
                 'authenticatedAs' => 3,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
-                        'id' => (string) $request->id,
+                        'type'       => 'username-requests',
+                        'id'         => (string) $request->id,
                         'attributes' => [
                             'status' => 'Rejected',
                             'reason' => 'Username not allowed',
@@ -397,12 +397,12 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/username-requests', [
                 'authenticatedAs' => 2,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
+                        'type'       => 'username-requests',
                         'attributes' => [
                             'requestedUsername' => 'updatedname',
-                            'forNickname' => false,
+                            'forNickname'       => false,
                         ],
                     ],
                     'meta' => [
@@ -425,12 +425,12 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/username-requests', [
                 'authenticatedAs' => 1,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
+                        'type'       => 'username-requests',
                         'attributes' => [
                             'requestedUsername' => 'adminrequest',
-                            'forNickname' => false,
+                            'forNickname'       => false,
                         ],
                     ],
                     'meta' => [
@@ -455,10 +455,10 @@ class UsernameRequestApiTest extends TestCase
         $response = $this->send(
             $this->request('PATCH', '/api/username-requests/'.$requestId, [
                 'authenticatedAs' => 1,
-                'json' => [
+                'json'            => [
                     'data' => [
-                        'type' => 'username-requests',
-                        'id' => $requestId,
+                        'type'       => 'username-requests',
+                        'id'         => $requestId,
                         'attributes' => [
                             'status' => 'Approved',
                         ],

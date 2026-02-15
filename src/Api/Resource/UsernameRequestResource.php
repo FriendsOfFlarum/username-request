@@ -14,7 +14,6 @@ namespace FoF\UserRequest\Api\Resource;
 use Carbon\Carbon;
 use Flarum\Api\Context as FlarumContext;
 use Flarum\Api\Endpoint;
-use Tobyz\JsonApiServer\Context;
 use Flarum\Api\Resource\AbstractDatabaseResource;
 use Flarum\Api\Schema;
 use Flarum\Api\Sort\SortColumn;
@@ -30,6 +29,7 @@ use FoF\UserRequest\UsernameRequest;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use Tobyz\JsonApiServer\Context;
 
 class UsernameRequestResource extends AbstractDatabaseResource
 {
@@ -55,7 +55,7 @@ class UsernameRequestResource extends AbstractDatabaseResource
      * Scope: moderators see only pending (Sent) requests; users see only their own.
      *
      * @param Builder<\Illuminate\Database\Eloquent\Model> $query
-     * @param FlarumContext $context
+     * @param FlarumContext                                $context
      */
     public function scope(Builder $query, Context $context): void
     {
@@ -89,8 +89,8 @@ class UsernameRequestResource extends AbstractDatabaseResource
                 ->visible(fn (UsernameRequest $request, FlarumContext $context) => $context->getActor()->can('user.viewUsernameRequests')),
             Endpoint\Delete::make()
                 ->authenticated()
-                ->visible(fn (UsernameRequest $request, FlarumContext $context) =>
-                    $context->getActor()->can('user.processUsernameRequests') ||
+                ->visible(
+                    fn (UsernameRequest $request, FlarumContext $context) => $context->getActor()->can('user.processUsernameRequests') ||
                     $request->user_id === $context->getActor()->id
                 ),
         ];
@@ -189,7 +189,7 @@ class UsernameRequestResource extends AbstractDatabaseResource
 
         // Find or create username request for this user and type
         $model = UsernameRequest::firstOrNew([
-            'user_id' => $actor->id,
+            'user_id'      => $actor->id,
             'for_nickname' => $forNickname,
         ]);
 

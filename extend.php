@@ -26,7 +26,7 @@ return [
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js'),
 
-    (new Extend\ApiResource(UsernameRequestResource::class)),
+    new Extend\ApiResource(UsernameRequestResource::class),
 
     (new Extend\Model(User::class))
         ->cast('username_history', 'string')

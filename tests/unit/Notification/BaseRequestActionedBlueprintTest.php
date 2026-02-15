@@ -11,11 +11,10 @@
 
 namespace FoF\UserRequest\Tests\unit\Notification;
 
-use FoF\UserRequest\Notification\BaseRequestActionedBlueprint;
+use Flarum\User\User;
 use FoF\UserRequest\Notification\RequestApprovedBlueprint;
 use FoF\UserRequest\Notification\RequestRejectedBlueprint;
 use FoF\UserRequest\UsernameRequest;
-use Flarum\User\User;
 use PHPUnit\Framework\TestCase;
 
 class BaseRequestActionedBlueprintTest extends TestCase
