@@ -23,12 +23,13 @@ export default class RequestsListState {
     m.redraw();
 
     app.store
-      .find('username-requests')
+      .find('username-requests', { include: 'user' })
       .then((requests) => {
-        delete requests.payload;
         app.cache.username_requests = requests.sort((a, b) => a.createdAt() - b.createdAt());
       })
-      .catch(() => {})
+      .catch(() => {
+        app.cache.username_requests = [];
+      })
       .then(() => {
         this.loading = false;
         m.redraw();

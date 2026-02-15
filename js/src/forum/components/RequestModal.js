@@ -1,9 +1,10 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
 import Stream from 'flarum/common/utils/Stream';
-import Modal from 'flarum/common/components/Modal';
+import FormModal from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 
-export default class RequestModal extends Modal {
+export default class RequestModal extends FormModal {
   oninit(vnode) {
     super.oninit(vnode);
 
@@ -34,21 +35,21 @@ export default class RequestModal extends Modal {
     if (this.success) {
       return (
         <div className="Modal-body">
-          <div className="Form Form--centered">
+          <Form className="Form--centered">
             <p className="helpText">{app.translator.trans(`${this.translationPrefix}.confirmation_message`)}</p>
             <div className="Form-group">
               <Button className="Button Button--primary Button--block" onclick={this.hide.bind(this)}>
                 {app.translator.trans(`${this.translationPrefix}.dismiss_button`)}
               </Button>
             </div>
-          </div>
+          </Form>
         </div>
       );
     }
 
     return (
       <div className="Modal-body">
-        <div className="Form Form--centered">
+        <Form className="Form--centered">
           {this.lastRequest ? (
             <p className="helpText">
               {app.translator.trans(`${this.translationPrefix}.current_request`, {
@@ -104,7 +105,7 @@ export default class RequestModal extends Modal {
           ) : (
             ''
           )}
-        </div>
+        </Form>
       </div>
     );
   }
@@ -140,7 +141,7 @@ export default class RequestModal extends Modal {
       .createRecord('username-requests')
       .save(
         {
-          username: this.username(),
+          requestedUsername: this.username(),
           forNickname: this.attrs.nickname,
         },
         {

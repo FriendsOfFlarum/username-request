@@ -21,7 +21,7 @@ class RequestRejectedBlueprint extends BaseRequestActionedBlueprint implements B
      *
      * @return string
      */
-    public static function getType()
+    public static function getType(): string
     {
         return 'usernameRequestRejected';
     }
@@ -31,8 +31,11 @@ class RequestRejectedBlueprint extends BaseRequestActionedBlueprint implements B
      *
      * @return array<string, string>
      */
-    public function getEmailView()
+    public function getEmailViews(): array
     {
-        return ['text' => 'fof-username-request::emails.usernameRequestRejected'];
+        return [
+            'text' => 'fof-username-request::emails.plain.rejected',
+            'html' => 'fof-username-request::emails.html.rejected',
+        ];
     }
 }

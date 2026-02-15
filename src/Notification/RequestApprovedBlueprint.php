@@ -21,7 +21,7 @@ class RequestApprovedBlueprint extends BaseRequestActionedBlueprint implements B
      *
      * @return string
      */
-    public static function getType()
+    public static function getType(): string
     {
         return 'usernameRequestApproved';
     }
@@ -31,8 +31,11 @@ class RequestApprovedBlueprint extends BaseRequestActionedBlueprint implements B
      *
      * @return array<string, string>
      */
-    public function getEmailView()
+    public function getEmailViews(): array
     {
-        return ['text' => 'fof-username-request::emails.usernameRequestApproved'];
+        return [
+            'text' => 'fof-username-request::emails.plain.approved',
+            'html' => 'fof-username-request::emails.html.approved',
+        ];
     }
 }

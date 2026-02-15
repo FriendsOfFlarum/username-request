@@ -64,6 +64,7 @@ fof-username-request:
     # Pending Requests Dropdown and List
     pending_requests:
       empty_text: No name change requests found.
+      group_label: Requests
       nickname_item_text: "{name} requested a nickname change"
       nickname_exerpt: "Requested nickname: {requestedName}"
       tooltip: => fof-username-request.ref.name_change_requests
@@ -91,14 +92,10 @@ fof-username-request:
     body:
       noReasonProvided: 'No reason provided.'
       approved: |
-        Hello {recipient_display_name},
-
         Your request to change your username to "{new_username}" has been approved by {actor_display_name}.
 
         You can now log in with your new username: {login_url}
       rejected: |
-        Hello {recipient_display_name},
-        
         Your request to change your username from "{old_username}" to "{requested_username}" has been rejected by {actor_display_name}.
 
         Reason: {reason}

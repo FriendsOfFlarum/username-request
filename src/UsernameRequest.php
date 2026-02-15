@@ -31,6 +31,8 @@ class UsernameRequest extends AbstractModel
 
     use ScopeVisibilityTrait;
 
+    protected $fillable = ['user_id', 'for_nickname'];
+
     protected $casts = [
         'created_at' => 'datetime',
     ];

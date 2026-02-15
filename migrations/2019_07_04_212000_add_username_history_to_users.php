@@ -18,7 +18,7 @@ return [
             return;
         }
         $schema->table('users', function (Blueprint $table) {
-            $table->addColumn('binary', 'username_history');
+            $table->addColumn('binary', 'username_history')->nullable();
         });
     },
 ];

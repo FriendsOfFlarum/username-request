@@ -1,3 +1,4 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
 import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
 import Button from 'flarum/common/components/Button';
@@ -43,15 +44,24 @@ export default class ResultsModal<CustomAttrs extends ResultsModalAttrs = Result
   content() {
     return (
       <div className="Modal-body">
-        <div className="Form Form--centered">
+        <Form className="Form--centered">
           {this.request.status() === 'Approved'
             ? [
                 <h2>{app.translator.trans(`${this.translationPrefix}.approved`)}</h2>,
-                <h3>{app.translator.trans(`${this.translationPrefix}.new_name`, { name: this.user.displayName() })}</h3>,
+                <h3>
+                  {app.translator.trans(`${this.translationPrefix}.new_name`, {
+                    name: this.user.displayName(),
+                  })}
+                </h3>,
               ]
             : [
                 <h2>{app.translator.trans(`${this.translationPrefix}.rejected`)}</h2>,
-                <h3>{app.translator.trans(`${this.translationPrefix}.reason`, { reason: this.request.reason(), i: <i /> })}</h3>,
+                <h3>
+                  {app.translator.trans(`${this.translationPrefix}.reason`, {
+                    reason: this.request.reason(),
+                    i: <i />,
+                  })}
+                </h3>,
                 <p className="helpText">{app.translator.trans(`${this.translationPrefix}.resubmit`)}</p>,
               ]}
           <div className="Form-group">
@@ -59,13 +69,13 @@ export default class ResultsModal<CustomAttrs extends ResultsModalAttrs = Result
               {app.translator.trans(`${this.translationPrefix}.dismiss_button`)}
             </Button>
           </div>
-        </div>
+        </Form>
       </div>
     );
   }
 
   onremove() {
     (this.user as User as any)[this.userRequestAttr] = Stream();
-    this.request.save({ delete: true });
+    this.request.delete();
   }
 }

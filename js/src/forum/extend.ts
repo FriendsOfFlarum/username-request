@@ -1,5 +1,6 @@
 import Extend from 'flarum/common/extenders';
 import User from 'flarum/common/models/User';
+import Forum from 'flarum/common/models/Forum';
 import UsernameRequest from './models/UsernameRequest';
 
 import RequestsPage from './components/RequestsPage';
@@ -17,4 +18,10 @@ export default [
     .hasOne<UsernameRequest>('lastNicknameRequest')
     .hasOne<UsernameRequest>('lastUsernameRequest')
     .attribute<UsernameRequest[] | null>('usernameHistory'),
+
+  new Extend.Model(Forum) //
+    .attribute<boolean>('canRequestUsername')
+    .attribute<boolean>('canRequestNickname')
+    .attribute<boolean>('canViewUsernameRequests')
+    .attribute<boolean>('passwordlessSignUp'),
 ];

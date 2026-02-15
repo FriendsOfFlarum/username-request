@@ -1,11 +1,12 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
 import Button from 'flarum/common/components/Button';
-import Modal from 'flarum/common/components/Modal';
+import FormModal from 'flarum/common/components/FormModal';
 import username from 'flarum/common/helpers/username';
 import Stream from 'flarum/common/utils/Stream';
 import withAttr from 'flarum/common/utils/withAttr';
 
-export default class ActionModal extends Modal {
+export default class ActionModal extends FormModal {
   oninit(vnode) {
     super.oninit(vnode);
 
@@ -29,7 +30,7 @@ export default class ActionModal extends Modal {
   content() {
     return (
       <div className="Modal-body">
-        <div className="Form">
+        <Form>
           <h3 className="Notification-content">
             {app.translator.trans(`${this.translationPrefix}.name`, {
               name: username(this.request.user()),
@@ -81,7 +82,7 @@ export default class ActionModal extends Modal {
               app.translator.trans(`${this.translationPrefix}.submit_button`)
             )}
           </div>
-        </div>
+        </Form>
       </div>
     );
   }
@@ -94,20 +95,20 @@ export default class ActionModal extends Modal {
     this.request
       .save({
         reason: this.reason(),
-        action: this.approved(),
+        status: this.approved(),
       })
       .then(() => {
         this.successAlert = app.alerts.show({ type: 'success' }, app.translator.trans(`${this.translationPrefix}.success`));
-      });
-
-    app.cache.username_requests.some((request, i) => {
-      if (request.id() == this.request.id()) {
-        app.cache.username_requests.splice(i, 1);
-      }
-    });
-
-    m.redraw();
-
-    this.hide();
+        // Remove from cache so it disappears from the dropdown
+        if (app.cache.username_requests) {
+          const idx = app.cache.username_requests.findIndex((r) => r.id() === this.request.id());
+          if (idx !== -1) {
+            app.cache.username_requests.splice(idx, 1);
+          }
+        }
+        m.redraw();
+      })
+      .catch(() => {})
+      .then(() => this.hide());
   }
 }
