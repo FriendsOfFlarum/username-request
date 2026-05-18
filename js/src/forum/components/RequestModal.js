@@ -159,9 +159,10 @@ export default class RequestModal extends FormModal {
   }
 
   onerror(error) {
+    this.submitLoading = false;
+
     if (error.status === 401) {
       error.alert.content = app.translator.trans('core.forum.change_email.incorrect_password_message');
-      this.submitLoading = false;
     }
 
     super.onerror(error);
