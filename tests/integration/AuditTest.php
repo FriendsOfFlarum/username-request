@@ -54,8 +54,10 @@ class AuditTest extends TestCase
             'authenticatedAs' => 1,
             'json'            => [
                 'data' => [
+                    'type'       => 'username-requests',
                     'attributes' => [
-                        'username' => 'admin2',
+                        'requestedUsername' => 'admin2',
+                        'forNickname'       => false,
                     ],
                 ],
                 'meta' => [
@@ -83,9 +85,10 @@ class AuditTest extends TestCase
             'authenticatedAs' => 1,
             'json'            => [
                 'data' => [
+                    'type'       => 'username-requests',
                     'attributes' => [
-                        'username'    => 'admin2',
-                        'forNickname' => true,
+                        'requestedUsername' => 'admin2',
+                        'forNickname'       => true,
                     ],
                 ],
                 'meta' => [
@@ -113,8 +116,10 @@ class AuditTest extends TestCase
             'authenticatedAs' => 1,
             'json'            => [
                 'data' => [
+                    'type'       => 'username-requests',
+                    'id'         => '1',
                     'attributes' => [
-                        'action' => 'Approved',
+                        'status' => 'Approved',
                     ],
                 ],
             ],
@@ -142,8 +147,10 @@ class AuditTest extends TestCase
             'authenticatedAs' => 1,
             'json'            => [
                 'data' => [
+                    'type'       => 'username-requests',
+                    'id'         => '2',
                     'attributes' => [
-                        'action' => 'Approved',
+                        'status' => 'Approved',
                     ],
                 ],
             ],
@@ -171,8 +178,10 @@ class AuditTest extends TestCase
             'authenticatedAs' => 1,
             'json'            => [
                 'data' => [
+                    'type'       => 'username-requests',
+                    'id'         => '1',
                     'attributes' => [
-                        'action' => 'Rejected',
+                        'status' => 'Rejected',
                         'reason' => 'because',
                     ],
                 ],
@@ -199,8 +208,10 @@ class AuditTest extends TestCase
             'authenticatedAs' => 1,
             'json'            => [
                 'data' => [
+                    'type'       => 'username-requests',
+                    'id'         => '2',
                     'attributes' => [
-                        'action' => 'Rejected',
+                        'status' => 'Rejected',
                         'reason' => 'because',
                     ],
                 ],
