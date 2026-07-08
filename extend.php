@@ -16,6 +16,7 @@ use Flarum\Api\Resource\UserResource;
 use Flarum\Extend;
 use Flarum\User\User;
 use FoF\UserRequest\Api\Resource\UsernameRequestResource;
+use FoF\UserRequest\Audit\UsernameRequestIntegration;
 
 return [
     (new Extend\Frontend('forum'))
@@ -64,4 +65,11 @@ return [
 
     (new Extend\View())
         ->namespace('fof-username-request', __DIR__.'/resources/views'),
+
+    (new Extend\Conditional())
+        ->whenExtensionEnabled('flarum-audit', fn () => [
+            (new \Flarum\Audit\Extend\Audit())
+                ->group('fof-username-request')
+                ->using(new UsernameRequestIntegration()),
+        ]),
 ];
