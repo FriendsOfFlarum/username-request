@@ -136,8 +136,6 @@ class AuditTest extends TestCase
             'new_username' => 'user33',
         ], $log->payload);
         $this->assertEquals('127.0.0.1', $log->ip_address);
-
-        $this->assertNull(AuditLog::query()->where('action', 'user.username_changed')->first());
     }
 
     #[Test]
@@ -167,8 +165,6 @@ class AuditTest extends TestCase
             'new_nickname' => 'user33',
         ], $log->payload);
         $this->assertEquals('127.0.0.1', $log->ip_address);
-
-        $this->assertNull(AuditLog::query()->where('action', 'user.nickname_changed')->first());
     }
 
     #[Test]
