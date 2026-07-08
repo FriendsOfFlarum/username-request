@@ -41,8 +41,8 @@ class AuditTest extends TestCase
                 ],
             ],
             'username_requests' => [
-                ['id' => 1, 'user_id' => 3, 'requested_username' => 'user33', 'status' => 'Sent'],
-                ['id' => 2, 'user_id' => 3, 'requested_username' => 'user33', 'status' => 'Sent', 'for_nickname' => true],
+                ['id' => 1, 'user_id' => 3, 'requested_username' => 'user33', 'status' => 'Sent', 'created_at' => '2021-01-01 00:00:00'],
+                ['id' => 2, 'user_id' => 3, 'requested_username' => 'user33', 'status' => 'Sent', 'for_nickname' => true, 'created_at' => '2021-01-01 00:00:00'],
             ],
         ]);
     }
