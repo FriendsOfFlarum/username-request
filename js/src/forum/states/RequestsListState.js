@@ -5,17 +5,19 @@ export default class RequestsListState {
     this.app = app;
 
     /**
-     * Whether or not the flags are loading.
+     * Whether the pending requests are being loaded.
      *
      * @type {Boolean}
      */
     this.loading = false;
-
-    this.cache = [];
   }
 
+  /**
+   * Load the pending requests into app.cache.username_requests, once: a load in
+   * flight or already finished is not started again.
+   */
   load() {
-    if (app.cache.username_requests) {
+    if (this.loading || app.cache.username_requests) {
       return;
     }
 
@@ -28,7 +30,7 @@ export default class RequestsListState {
         app.cache.username_requests = requests.sort((a, b) => a.createdAt() - b.createdAt());
       })
       .catch(() => {
-        app.cache.username_requests = [];
+        // Leave the cache unset so a later load() (e.g. the requests page) retries.
       })
       .then(() => {
         this.loading = false;
