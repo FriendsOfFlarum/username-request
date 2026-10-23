@@ -10,4 +10,4 @@ export default class ActionModal extends FormModal<import("flarum/common/compone
     onsubmit(e: any): void;
     successAlert: number | undefined;
 }
-import FormModal from "flarum/common/components/FormModal";
+import FormModal from 'flarum/common/components/FormModal';

@@ -4,4 +4,4 @@ export default class RequestsDropdown extends HeaderDropdown<import("flarum/foru
     getUnreadCount(): any;
     getNewCount(): any;
 }
-import HeaderDropdown from "flarum/forum/components/HeaderDropdown";
+import HeaderDropdown from 'flarum/forum/components/HeaderDropdown';

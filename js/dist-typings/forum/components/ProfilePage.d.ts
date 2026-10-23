@@ -6,4 +6,4 @@ export default class ProfileConfigurePane extends UserPage<import("flarum/forum/
     show(user: any): void;
     calculateTime(time: any): number;
 }
-import UserPage from "flarum/forum/components/UserPage";
+import UserPage from 'flarum/forum/components/UserPage';

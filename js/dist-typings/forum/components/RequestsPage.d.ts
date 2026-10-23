@@ -3,4 +3,4 @@ export default class RequestsPage extends Page<import("flarum/common/components/
     oninit(vnode: any): void;
     view(): JSX.Element;
 }
-import Page from "flarum/common/components/Page";
+import Page from 'flarum/common/components/Page';

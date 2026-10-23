@@ -17,4 +17,4 @@ export default class RequestModal extends FormModal<import("flarum/common/compon
     submitLoading: boolean | undefined;
     onerror(error: any): void;
 }
-import FormModal from "flarum/common/components/FormModal";
+import FormModal from 'flarum/common/components/FormModal';
