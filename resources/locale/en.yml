@@ -116,3 +116,10 @@ flarum-audit:
         username_requested: Requested new username {new_username} for user {username}
         username_request_approved: Approved {username}'s username change from {old_username} to {new_username}
         username_request_rejected: Rejected {username}'s username change
+
+core:
+  email:
+    notification:
+      types:
+        usernameRequestApproved: Approvals of your username change requests
+        usernameRequestRejected: Rejections of your username change requests
